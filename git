@@ -1,0 +1,260 @@
+#+-*-mode: org;-*-
+#+creator: Emacs 28.0.50 (Org mode 9.3 + ox-hugo)
+#+hugo_with_locale: en
+#+hugo_front_matter_format: toml
+#+hugo_level_offset: 1
+#+hugo_delete_trailing_ws:
+#+hugo_section: post
+#+hugo_bundle:
+#+hugo_base_dir: ../../
+#+date: <2020-10-09 Fri 13:35>
+#+hugo_tags: git github
+#+hugo_categories: git github
+#+TITLE: Git Pro
+* Git Pro
+
+** Git 分支
+
+*** 分支简介
+
+Question: Git 是如何保存数据的。
+
+Git 保存的不是文件的变化或者差异，而是一系列不同时刻的 快照 。
+在进行提交操作时，Git 会保存一个 =提交对象（commit object）= 。
+ 
+该提交对象会包含一个指向暂存内容快照的 =指针= ，也包含了作者的姓名和邮箱、
+提交时输入的信息以及指向它的父对象的指针。
+
+#+begin_src sh
+git add README test.rb LICENSE 
+git commit -m 'The initial commit of my project'
+#+end_src
+
+当使用 git commit 进行提交操作时，Git 会先计算每一个子目录（本例中只有
+项目根目录）的校验和， 然后在 Git 仓库中这些校验和保存为树对象。
+
+随后，Git 便会创建一个提交对象， 它除了包含上面提到的那些信息外，还包
+含指向这个树对象（项目根目录）的指针。 如此一来，Git 就可以在需要的时
+候重现此次保存的快照。
+
+现在，Git 仓库中有五个对象：三个 blob 对象（保存着文件快照）、一个 树
+对象 （记录着目录结构和 blob 对象索引）以及一个 提交 对象（包含着指向
+前述树对象的指针和所有提交信息）。
+
+#+caption: 总体来讲，是一个提交对象 + 一个带着树索引对象的 多个 blob 对象。
+#+name: 首次提交对象及其树结构
+[[file:~/Picture/commit-and-tree.png][file:~/Picture/commit-and-tree.png]]
+
+首次提交产生的提交对象没有父对象，普通提交操作产生的提交对象有一个父对
+象， 而由多个分支合并产生的提交对象有多个父对象，
+
+#+caption: 可以看出每次修改再提交后，产生的提交对象含有一个指向上次提交对象的指针。
+#+name:  提交对象及其父对象
+[[file:~/Picture/commits-and-parents.png][file:~/Picture/commits-and-parents.png]]
+
+Git 的分支，其实本质上仅仅是指向提交对象的可变指针。
+
+
+Git 的默认分支名字是 master。 在多次提交操作之后，你其实已经有一个指向
+最后那个提交对象的 master 分支。 *master 分支会在每次提交时自动向前移
+动* 。
+
+
+#+name: 分支及其提交历史
+[[file:~/Picture/branch-and-history.png][file:~/Picture/branch-and-history.png]]
+
+
+*** 分支创建
+
+1.Question: Git 是怎么创建新分支的呢？
+
+Git 只是 *创建了一个可以移动的新的指针*. 比如，创建一个 testing 分支，
+你需要使用 git branch 命令：
+
+#+begin_src shell
+git branch testing
+#+end_src
+
+这会在当前所在的提交对象上创建一个指针。
+
+#+name: 两个指向相同提交历史的分支
+[[file:~/Picture/two-branches.png][file:~/Picture/two-branches.png]] 
+
+2.Question: Git 怎么知道当前在哪一个分支上？
+
+Git 有一个名为 HEAD 的特殊指针。 
+
+请注意它和许多其它版本控制系统（如 Subversion 或 CVS）里的 HEAD 概念完
+全不同。 在 Git 中，它是一个指针，指向 *当前所在的本地分支* （译注：将
+HEAD 想象为当前分支的别名）。 在本例中，你仍然在master分支上。 因为
+git branch命令仅仅创建 一个新分支，并不会自动切换到新分支中去。
+
+#+name: HEAD 指向当前所在的分支
+[[file:~/Picture/head-to-master.png][file:~/Picture/head-to-master.png]]
+
+查看各个分支当前所指的对象： =git log --oneline --decorate=
+
+[[file:~/Picture/git-log--online--decorate.png][file:~/Picture/git-log--online--decorate.png]]
+
+当前 master 和 testing 分支均指向校验和以 abc4d9c 开头的提交对象。
+
+*** 分支切换
+
+运行 =git checkout testing=,观察指针指向的方向：
+
+#+name: HEAD 指向当前所在的分支
+[[file:~/Picture/git-current-HEAD-location.png][file:~/Picture/git-current-HEAD-location.png]]
+
+
+#+name:  HEAD 指向当前所在的分支
+[[file:~/Picture/HEAD-follow-branch-commit.png][file:~/Picture/HEAD-follow-branch-commit.png]]
+
+运行 =git checkout master=, HEAD 分支随着提交操作自动向前移动。
+
+#+caption: 这条命令做了两件事。 一是使 HEAD 指回 master 分支，二是将工作目录恢复成 master 分支所指向的快照内容。 
+#+name: HEAD 分支随着提交操作自动向前移动
+[[file:~/Picture/git-check-master-effect.png][file:~/Picture/git-check-master-effect.png]]
+
+也就是说，你现在做修改的话，项目将始于一个较旧的版本。 本质上来讲，这
+就是忽略 testing 分支所做的修改，以便于向另一个方向进行开发。
+
+- Note!!! ::
+  分支切换会改变你工作目录中的文件。在切换分支时，一定要注意你工作目录
+  里的文件会被改变。 如果是切换到一个较旧的分支，你的工作目录会恢复到
+  e。 如果 Git 不能干净利落地完成这个任务，它
+  将禁止切换分支。
+ 
+我们不妨再稍微做些修改并提交：
+
+#+begin_src shell
+vim test.rb
+git commit -a -m 'made other changes'
+#+end_src
+
+现在，这个项目的提交历史已经产生了 *分叉* 。 
+
+因为刚才你创建了一个新分支，并切换过去进行了一些工作，随后又切换回
+master 分支进行了另外一些工作。
+
+上述两次改动针对的是不同分支：你可以在不同分支间不断地来回切换和工作，
+并在时机成熟时将它们合并起来。 而所有这些工作，你需要的命令只有 branch、
+checkout 和 commit。
+
+[[file:~/Picture/advance-master.png][file:~/Picture/advance-master.png]]
+
+*** 项目分叉历史
+
+运行下面的命令看下分叉历史： =git log --all --decorate --oneline
+--graph= , 他会输出你的提交历史、各个分支的指向以及项目的分支分叉情况。
+
+[[file:~/Picture/git-decorate-graph.png][file:~/Picture/git-decorate-graph.png]]
+
+#+begin_src shell 
+$ git log --oneline --decorate --graph --all
+
+,* c2b9e (HEAD, master) made other changes
+| * 87ab2 (testing) made a change
+|/
+,* f30ab add feature #32 - ability to add new formats to the
+,* 34ac2 fixed bug #1328 - stack overflow under certain conditions
+,* 98ca9 initial commit of my project
+#+end_src
+
+ Git 的分支实质上仅是包含所指对象校验和（长度为 40 的 SHA-1 值字符串）
+ 的文件，所以它的创建和销毁都异常高效。 创建一个新分支就相当于往一个文
+ 件中写入 41 个字节（40 个字符和 1 个换行符）
+ 
+由于每次提交都会记录父对象，所以寻找恰当的合并基础（即共同祖先）也是同
+样的简单和高效。
+
+** 分支的新建与合并
+
+场景：
+1. 开发某个网站
+2. 为实现某个新的用户的需求，创建一个分支
+3. 在这个分支上开展工作
+4. 现在有个紧急情况，需要你尽快处理。
+   你将按照下面的方式进行处理：
+   A: 切换到你的线上分支（production branch）
+   B: 为这个紧急任务新建一个分支，并在其中修复它。
+   C: 在测试通过之后，切换回线上分支，然后合并这个修补分支，最后将改动
+   推送到线上分支。
+   D: 切换回你最初工作的分支上，继续工作。
+   
+
+*** 新建分支
+#+begin_src shell
+➜  git-init-project git:(master) git checkout master
+已经位于 'master'
+您的分支领先 'origin/master' 共 3 个提交。
+  （使用 "git push" 来发布您的本地提交）
+➜  git-init-project git:(master) git checkout -b hotfix
+切换到一个新分支 'hotfix'
+➜  git-init-project git:(hotfix) vim README.org 
+➜  git-init-project git:(hotfix) ✗ git commit -a -m "fixed the broken email address"
+➜  git-init-project git:(hotfix) ✗ gst
+zsh: command not found: gst
+➜  git-init-project git:(hotfix) ✗ git status 
+位于分支 hotfix
+尚未暂存以备提交的变更：
+  （使用 "git add <文件>..." 更新要提交的内容）
+  （使用 "git restore <文件>..." 丢弃工作区的改动）
+        修改：     README.org
+
+修改尚未加入提交（使用 "git add" 和/或 "git commit -a"）
+➜  git-init-project git:(hotfix) ✗ git log
+➜  git-init-project git:(hotfix) ✗ git commit -a -m "add the available emial address"
+[hotfix def51de] add the available emial address
+ 1 file changed, 2 insertions(+)
+➜  git-init-project git:(hotfix) git log --decorate 
+➜  git-init-project git:(hotfix) git log --decorate --graph 
+➜  git-init-project git:(hotfix) git branch 
+➜  git-init-project git:(hotfix) git checkout master 
+切换到分支 'master'
+您的分支领先 'origin/master' 共 3 个提交。
+  （使用 "git push" 来发布您的本地提交）
+➜  git-init-project git:(master) git log --decorate --graph
+➜  git-init-project git:(master) git log --decorate --graph --oneline
+➜  git-init-project git:(master) git merge hotfix
+更新 1fe796d..def51de
+Fast-forward
+ README.org | 2 ++
+ 1 file changed, 2 insertions(+)
+➜  git-init-project git:(master) git log --decorate --graph --oneline
+➜  git-init-project git:(master) git branch -d hotfix
+已删除分支 hotfix（曾为 def51de）。
+➜  git-init-project git:(master) git checkout issue01 
+切换到分支 'issue01'
+➜  git-init-project git:(issue01) vim README.org 
+➜  git-init-project git:(issue01) ✗ git commit -a -m "finished fix the supid error word"
+[issue01 28aac8a] finished fix the supid error word
+ 1 file changed, 2 insertions(+)
+➜  git-init-project git:(issue01) git log --decorate --graph --oneline
+➜  git-init-project git:(issue01) git checkout master 
+切换到分支 'master'
+您的分支领先 'origin/master' 共 4 个提交。
+  （使用 "git push" 来发布您的本地提交）
+➜  git-init-project git:(master) git merge issue01 
+自动合并 README.org
+冲突（内容）：合并冲突于 README.org
+自动合并失败，修正冲突然后提交修正的结果。
+➜  git-init-project git:(master) ✗ vim README.org 
+➜  git-init-project git:(master) ✗ git commit -a -m "slove meger conflition quesiton"
+[master a556a05] slove meger conflition quesiton
+➜  git-init-project git:(master) git status 
+位于分支 master
+您的分支领先 'origin/master' 共 7 个提交。
+  （使用 "git push" 来发布您的本地提交）
+
+无文件要提交，干净的工作区
+➜  git-init-project git:(master) git log 
+➜  git-init-project git:(master) cat README.org 
+PC online test file
+PT online push file
+
+my email is 128728921@gmail.com
+supid fucker, I fix this error word!
+
+sorry, i already fix the hot question: no email question.
+➜  git-init-project git:(master) 
+#+end_src
