@@ -1,0 +1,87 @@
+[http]
+	proxy = socks5://127.0.0.1:1088
+[user]
+	name = lovemoganna
+	email = 15733207536@163.com
+[core]
+	editor = vim
+[alias]
+        # 显示当前git配置信息
+        cfc = config --list
+        cfg = config --list --show-origin
+        cfe = config --global core.editor vim ## 修改默认编辑器，可选
+
+        # 切换分支
+	ck = checkout
+	ckb = checkout -b
+
+        # 分支
+	b = branch
+	bv = branch -v
+
+        ## 状态 
+	st = status
+        ## 状态简览
+        sts = status -s
+        # 修改最后的提交信息
+        cme = commit --amend
+        # 获取帮助
+        h = help
+        # clone repo
+        cl = clone
+        # track file       
+        a = add
+        aa = add -all
+        # 查看已暂存和未暂存的修改
+        d = diff
+        dsta = diff --staged
+        dcach = diff --cached
+
+        # 提交到暂存区
+        c = commit 
+        cm = commit -m 
+        cam = commit -a -m
+
+        # 迭代删除
+        rmr = rm -r
+        # 从暂存区删除文件，仅保留文件在磁盘中
+        rmcach = rm --cached
+        rmrcach = rm -r --cached
+
+        # 移动文件自动追踪
+        # git mv file1 file2
+
+        # 远程仓库       
+        r = remote
+        rv = remote -v 
+        ra = remote add
+        rs = remote show
+        rre = remote rename
+        rrm = remote remove
+        f = fetch
+        fom = fetch origin master
+        
+        # 从远程仓库中拉取
+        pl = pull
+
+        # 推送到远程仓库
+        p = push
+        pom = push origin master
+
+        # git log
+        lg = log
+        lg2 = log -p -2
+        lgst = log --stat
+        lgp = log --pretty
+        lgpone = log --pretty=oneline
+	lgtime = log --pretty=format:\"%h- %an 在 %cr 时间点为 %ad 提交信息： %s\"
+
+        # reset
+	unstage = reset HEAD --
+        ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+        ld = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short --graph
+        ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+   
+        lg2weeks = log --since=2.weeks
+	lgday = log --since=\"\"
+
