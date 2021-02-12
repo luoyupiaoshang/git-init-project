@@ -10,3 +10,1095 @@ V1.1 dev log:
 
 1.To issue01 already fix that error word. I checked it 2 times.
 
+# What You Need 
+
+To follow along with this book,  you’ll need the following: • Git 2.21.0 or later.  Git is the software package that you’ll use for all of the work in this book.  There are installers for macOS,  Windows,  and Linux available for free from the official Git page here:  https://git-scm.com/downloads.
+
+## Book Source Code & Forums
+
+If you bought the  digital edition 
+The digital edition of this book comes with the source code for the starter and completed projects for each chapter.  These resources are included with the digital edition you downloaded from  store.raywenderlich.com. 
+
+## If you bought the print version 
+
+You can get the source code for the print edition of the book here: https://store.raywenderlich.com/products/mastering-git-source-code 
+
+## Forums 
+
+We’ve also set up an official forum for the book at  forums.raywenderlich.com.  This is a great place to ask questions about the book or to submit any errors you may find. 
+
+## Digital book  editions 
+
+We have a digital edition of this book available in both ePUB and PDF,  which can be handy if you want a soft copy to take with you,  or you want to quickly search for a specific term within the book. Buying the digital edition version of the book also has a few extra benefits: free updates each time we update the book,  access to older versions of the book,  and you can download the digital editions from anywhere,  at anytime.
+
+Visit our book store page here: 
+• https://store.raywenderlich.com/products/mastering-git. 
+
+And if you purchased the print version of this book,  you’re eligible to upgrade to the digital editions at a significant discount! Simply email support@razeware.com with your receipt for the physical copy and we’ll get you set up with the discounted digital edition version of the book.
+
+## Early Access Edition 
+
+You’re reading an an early access edition of Mastering Git. This edition contains a sample of the chapters that will be contained in the final release. 
+
+We hope you enjoy the preview of this book,  and that you’ll come back to help us celebrate the full launch of  Mastering Git  early in 2020! 
+
+The best way to get update notifications is to sign up for our monthly newsletter. This includes a list of the tutorials that came out on raywenderlich.com that month, any important news like book updates or new books,  and a list of our favorite development links for that month.  You can sign up here:
+ • www.raywenderlich.com/newsletter
+
+## Section  I: Beginning  Git
+
+This first section is intended to get newcomers familiar with Git.  It will introduce the basic concepts that are central to Git,  how Git differs from other version control systems,  and the basic operations of Git like committing,  merging,  and pulling. 
+
+You may discover things in this section you didn’t quite understand about Git,  even if you’ve used Git for a long time. 
+
+Specifically,  you’ll cover: 
+
+1. Crash Course in Git: Learn how to get started with Git,  the differences between platforms,  and a quick overview of the typical Git workflow. 
+2. Cloning a Repo: It’s quite common to start by creating a copy of somebody else’s repository.  Discover how to clone a remote repo to your local machine,  and what constitutes  "forking"  a repository. 
+3. Committing Your Changes:  A  Git repo is made up of a sequence of commits— each representing the state of your code at a point in time.  Discover how to create these commits to track the changes you make in your code.
+4. The Staging  Area: Before you can create a Git commit,  you have to use the  “add” command. What does it do? Discover how to use the staging area to great effect through the interactive git add command. 
+5. Ignoring Files in Git: Sometimes,  there are things that you really don’t want to store in your source code repository. 
+6. Git Log & History: There’s very little point in creating a nice history of your source code if you can’t explore it.  You’ll discover the versatility of the git log command—displaying branches, graphs and even filtering the history. 
+7. Branching: The real power in Git comes from its branching and merging model. This allows you to work on multiple things simultaneously. Discover how to manage branches,  and exactly what they are in this chapter.
+8. Syncing with a Remote: You’ve been working hard on your local copy of the Git repository,  and now you want to share this with your friends.  See how you can share through using remotes,  and how you can use multiple remotes at the same time. 
+9. Creating a Repository: If you are starting a new project,  and want to use Git for source control,  you first need to create a new repository. 
+10. Merging: Branches in Git without merging would be like basketball without the hoop—fun, sure,  but with very little point.  In this chapter you’ll learn how you can use merging to combine the work on multiple branches back into one. 
+11. Stashes: Git stashes offer a great way for you to create a temporary snapshot of what you’re working on,  without having to create a full-blown commit.  Discover when that might be useful,  and how to go about it.
+
+## Chapter 1: Crash Course in Git 
+
+This is an early access release of this book.  Stay tuned for this chapter in a future release!
+
+## Chapter 2: Cloning  a  Repo 
+By Chris Belanger 
+
+The preceding chapter took you through a basic crash course in git and got you right into using the basic mechanisms of git: cloning a repo,  creating branches,  switching to branches,  committing your changes,  pushing those changes back to the remote and opening a pull request on GitHub for your changes to be reviewed. 
+
+That explains the  how  aspect of git,  but,  if you’ve worked with git for any length of time (or haven’t worked with git for any time at all),  you’ll know that the  how  is not enough. It’s important to also understand the  why  of git to gain not just a better understanding of what’s going on under the hood,  but also to understand how to fix things when,  not if,  your repository gets into a weird state. 
+
+So,  first,  you’ll start with the most basic aspect of git: getting a repository copied to your local system via  cloning.
+
+### What is cloning? 
+
+Cloning is exactly what it sounds like: creating a copy,  or clone,  of a repository.  A  git repository is nothing terribly special; it’s simply a directory,  containing code,  text or other assets,  that tracks its own history.  Then there’s a bit of secure file transfer magic in front of that directory that lets you sync up changes.  That’s it. 
+
+A git repository tracks the history of all changes inside the repository through a hidden  .git  directory that you usually don’t ever have to bother with  —  it’s just there to quietly track everything that happens inside the repository.  You’ll learn more about the structure and function of the hidden  .git directory later on in this book. 
+
+So since a git repository is just a special directory,  you could,  in theory,  effect a pretty cheap and dirty clone operation by zipping up all the files in a repository on your friend’s or colleague’s workstation and then emailing it to yourself.  When you extract the contents of that zipped-up file,  you’d have an exact copy of the repository on your computer. However, emailing things around can (and does) get messy.  Instead,  many organizations make use of online repository hosts,  such as GitHub,  GitLab,  BitBucket or others.  Some organizations choose to self-host repositories,  and you’ll learn about that later in this book.  But,  for now,  you’ll stick to using online hosts  —  in this example,  GitHub. Using GitHub GitHub,  at its most basic level,  is really just a big cloud-based storage solution for repositories,  with account and access management mixed in with some collaboration tools.  But you don’t need to know about all the features of GitHub to start working with repositories hosted on GitHub,  as demonstrated in the git crash course in the previous chapter. Cloning from an online repository is a rather straightforward operation.  To get started,  you simply need the following things: • A working installation of git on your local system. • The remote URL of the repository you want to clone. • Any credentials for the online host.
+
+### Using GitHub 
+
+GitHub,  at its most basic level,  is really just a big cloud-based storage solution for repositories,  with account and access management mixed in with some collaboration tools.  But you don’t need to know about all the features of GitHub to start working with repositories hosted on GitHub,  as demonstrated in the git crash course in the previous chapter. 
+
+Cloning from an online repository is a rather straightforward operation.  To get started,  you simply need the following things:
+
+ • A working installation of git on your local system.
+ • The remote URL of the repository you want to clone.
+ • Any credentials for the online host.
+
+Note: It is generally possible to clone repositories without using credentials, but you won’t be able to propagate the changes you make on your local copy back to the online host。
+
+### The GitHub repository homepage
+
+There’s a repository already set up on GitHub for you to clone, so you first need to get the remote URL of the repository.
+
+To start, navigate to https://github.com/raywenderlich/ideas and log in with your GitHub username and password. If you haven’t already set up an account, you can do so now.
+
+Once you’re on the homepage for the repository, have a look at the list of files and directories listed on the page. These lists and directories represent the contents of the repository, and they are the files that you’ll clone to your local system.
+
+But where do you find the remote URL of the repository to clone it? Like many things in git (and with computers,  in general),  there are multiple ways to clone a repository. In this chapter,  you’ll use the easiest and most common cloning method,  which starts on the GitHub repository homepage. 
+
+### Finding  the  repository  clone  URL 
+
+Look for and click on the  Clone or download  button on the repository homepage. 
+
+The  ’Clone or download’  button displays the various cloning options for a repository. The little pop-up dialog gives you a few options to get a repository cloned to your local system: 
+
+The cloning options for at GitHub repository. 
+
+1. This is the main HTTPS URL for the repository.  This is the URL that you’ll use in this chapter to clone from the command line git client. 
+2. You can also use SSH to clone a repository.  Clicking this link lets you toggle between using SSH and HTTPS to work with the repository.  Leave this at (the rather unintuitive)  Use SSH  for now.  You’ll cover SSH later in this book. 
+3. If you have the GitHub Desktop app installed,  you can use the  Open in Desktop button to launch GitHub Desktop and clone this repository all in one step. 
+4. If you just want a zipped copy of what’s in the repository (but not all the repository bits itself),  the  Download ZIP  button will let you do this. 
+
+For now,  copy the HTTPS URL that you see in the dialog via the little clipboard icon button to the right of the URL.  This places a copy of the HTTPS URL in your clipboard so that you can paste it into your command line later.
+
+### Cloning on  the  command line 
+
+Now, go to your command prompt.  Change to a suitable directory where you want your repositories to live.  In this case,  I’ll create a directory in my home directory named  MasteringGit  where I would like to locally store all of the repos for this book.
+
+Execute the following command to create the new directory:
+
+```
+mkdir MasteringGit 
+```
+
+Now, execute the following command to see the listing of files in the directory (yours will be different than shown below): 
+
+```sh
+ls 
+```
+
+I see the following directories on my system,  and there’s my new  MasteringGit directory: 
+
+```
+~ $ ls
+ Applications        Downloads       Music Dropbox             Pictures Library Public              Desktop         MasteringGit Documents        Movies 
+```
+
+Execute the following command to navigate into the new directory: 
+
+```
+cd  MasteringGit
+```
+
+
+You’re now ready to use the command line to clone the repository. 
+
+Enter the following command,  but don’t press the  Enter  key or  Return  key just yet: 
+
+```
+git  clone 
+```
+
+Now, press the  Space bar  to add one space character and paste in the URL you copied earlier,  so your command looks as follows: 
+
+```
+git  clone  https://github.com/raywenderlich/ideas.git
+```
+
+Now, you can press  Enter  to execute the command. 
+
+You’ll see a brief summary of what Git is doing below:
+
+```
+~/MasteringGit $ git  clone  https://github.com/raywenderlich/ ideas.git Cloning into  'ideas'...
+remote: Enumerating objects: 49,  done. 
+remote: Total 49 (delta 0), reused 0 (delta 0), pack-reused 49 
+Unpacking objects: 100% (49/49),  done.
+```
+
+Execute the  ls  command to see the new contents of your  MasteringGit  directory:
+```
+~/MasteringGit $ ls 
+ideas 
+```
+
+Use the  cd  command,  followed by the  ls  command,  to navigate into the new directory and see what’s inside:
+```
+~/MasteringGit $  cd  ideas 
+~/MasteringGit/ideas $ ls 
+LICENSE     README.md   articles    books       videos
+```
+
+So there’s the content from the repository.  Well,  the  visible  content at least.  Run the ls  command again with the  -a  option to show the hidden  .git directory discussed earlier:
+```
+~/MasteringGit/ideas $ ls -a 
+.       .git        README.md   books ..      LICENSE     articles  videos 
+```
+
+Aha  — there’s that magical  .git  hidden directory.  Take a look at what’s inside. 
+
+### Exploring  the  .git directory 
+
+Use the  cd  command to navigate into the  .git directory: 
+
+```
+cd  .git 
+```
+
+Execute the  ls  command again to see what dark magic lives inside this directory. This time,  use the  -F  option so that you can tell which entities are files and which are directories: 
+
+```
+ls -F 
+```
+
+You’ll see the following: 
+```
+~/MasteringGit/ideas/.git $ ls -F 
+HEAD        config      hooks/      info/       objects/    
+refs/ branches/   description index       logs/       packed-refs
+```
+
+So it’s not quite the dark arts,  I’ll admit.  But what  is  here is a collection of important f iles and directories that track and control all aspects of your local git repository. Most of this probably won’t make much sense to you at this point,  and that’s fine.  As you progress through this book,  you’ll learn what most of these bits and pieces do. For now though,  leave everything as-is; there’s seldom any reason to work at this level of the repository.  Pretty much everything you do should happen up in your working directory,  not in the  .git subfolder. 
+
+So backtrack up one level to the the working directory for your repository with the  cd command: 
+```
+cd  .. 
+```
+
+You’re now back up in the relative safety of the top level of your repository.  For now, it’s enough to know where that  .git directory lives and that you really don’t have a reason to deal with anything in there right now. 
+
+### Forking 
+
+You’ve managed to make a clone of the  ideas  repository,  but although  ideas  is a public repository,  the  ideas  repository currently belongs to the raywenderlich organization.  And since you’re not a member of the raywenderlich organization,  the access control settings of the  ideas  repository mean that you won’t be able to push any local changes you make back to the server.  Bummer. 
+
+But with most public repositories,  like  ideas,  you can create a remote copy of the repository up on the server under your own personal user space.  You,  or anyone you grant access to,  can then clone that copy locally,  make changes and push those changes back to the remote copy on the server.  Creating a remote clone  —  or a  fork — of a repository is known as  forking. 
+
+First,  you’ll need to rid your machine of the existing local clone of the  ideas repository.  It’s of little use to you in its current state,  so it’s fine to get rid of it. First,  head up one level,  out of your working directory,  by executing the following command:
+
+```
+cd  ..
+```
+
+You should be back up at the main  MasteringGit  directory: 
+```
+~/MasteringGit $
+```
+Now, get rid of the local clone with the  rm  command,  and use the  -rf  options to recursively delete all subdirectories and files,  and to force all files to be deleted:
+```
+rm -rf ideas 
+```
+
+Execute  ls  to be sure the directory is gone: 
+```
+~/MasteringGit $ ls 
+~/MasteringGit $ 
+```
+
+Looks good.  You’re ready to create a fork of the raywenderlich  ideas  repository... which leads you to your challenge for this chapter!
+
+### Challenge: Fork  on  GitHub and create  a  local clone 
+
+The goal of this challenge is twofold: 
+1. Create a fork of the  ideas  repository under your own user account on GitHub. 
+2. Clone the forked repository to your local system. 
+
+Navigate to the homepage for the  ideas  repository at  https://github.com/ raywenderlich/ideas.  In the top right-hand corner of the page,  you’ll see the  Fork button.  That’s your starting point. 
+
+The  ’Fork’  button lets you create a remote copy of a repository. 
+
+The steps to this challenge are: 
+1. Fork the  ideas  repository under your own personal user account. 
+2. Find the clone URL of your new,  forked repository. 
+3. Clone the forked  ideas  repository to your local system. 
+4. Verify that the local clone created successfully.
+5. Bonus: Prove that you’ve cloned the fork of your repo and not the original repository. 
+
+If you get stuck,  you can always find the solution to this challenge under the challenges  folder. 
+
+### Key points 
+• Cloning  creates a local copy of a remote git repository. 
+
+• Use  git clone  along with the clone URL of a remote repository to create a local copy of a repository. 
+
+• Cloning a repository automatically creates a hidden  .git  directory,  which tracks the activity on your local repository. 
+
+• Forking  creates a remote copy of a repository under your personal user space. 
+
+### Where to go from here?
+
+Once you’ve successfully completed the challenge for this chapter,  head into the next chapter where you’ll learn about the  status,  diff,  add  and  commit  commands. You’ll also learn just a bit about how git actually tracks the changes that you make in the local copy of your repository.
+
+### Chapter 3: Committing Your Changes 
+By Chris Belanger 
+
+The previous chapter showed you how to clone remote repositories down to your local system.  At this point,  you’re ready to start making changes to your repository. That’s great! 
+
+But,  clearly,  just making the changes to your local files isn’t all you need to do.  You’ll need to stage the changes to your files,  so that Git knows about the changes.  Once you’re done making your changes,  you’ll need to tell Git that you want to commit those changes into the repository. 
+
+### What is a  commit? 
+
+As you’ve probably guessed by now,  a Git repo is more than a collection of files; there’s quite a bit going on beneath the surface to track the various states of your changes and,  even more importantly,  what to do with those changes. 
+
+To start,  head back to the homepage for your forked repository at https://github.com/ [your-username]/ideas,  and find the little  “11 commits”  link at the top of the repository page:
+
+```
+11 commits
+```
+
+Click that link, and you’ll see a bit of the history of this repository:
+
+Each of those entries is a commit, which is essentially a snapshot of the particular state of the set of files in the repository at a point in time.
+
+Generally, a commit represents some logical update to your collection of files. Imagine that you’re adding new items to your ideas lists, and you’ve added as many as you can think of. You’d like to capture that bit of work as a commit into your repository.
+
+The state of the repository before you began those updates  —  your starting point,  in effect  —  is the  parent  commit.  After you commit your changes  —  which is the  diff  — that next commit would be the  child  commit.  The diagram below explains this a little more: 
+
+In this example,  you can see that the parent commit is X,  and the child commit is Y. The diff between them are the changes I made to a single file: 
+And a diff doesn’t just have to be additions to files; creating new content,  modifying content and deleting content are other common changes that you’ll make to the files in your repository. 
+
+In Git,  there are a few steps between the act of changing a file and creating a commit. This may seem like a bit of a heavy approach,  at first,  but,  as you move through building up your commits,  you’ll see how each step helps create a workflow that keeps you in tune with the files in your repository and what’s happened to them. 
+
+The easiest way to understand the process of building up commits is to actually create one.  You’ll create a change to a file,  see how Git acknowledges that change, how to stage that change,  and,  finally,  how to commit that change to the repository.
+
+### Starting  with  a  change 
+
+
+Open your terminal program and navigate to the  ideas  repository inside of the MasteringGit  directory.  This should be the clone of the forked repository that you created in the previous chapter. 
+
+```
+Note: If you missed completing the challenge at the end of the Chapter 2,  go back now and follow the challenge solution so that you have a local clone of the forked  ideas  repository to work with. 
+```
+
+Assume that you want to add more ideas to the books file.  Open  books/ book_ideas.md  in any plaintext editor.  I like to use  nano  since it’s quick and easy, and I don’t need to remember any obscure commands to use it. 
+
+Add a line to the end of the file to capture a new book idea:  “Care and feeding of developers.”  Take care to follow the same format as the other entries.  Your file should look like this: 
+```
+# Ideas for new book projects 
+- [ ] Hotubbing by tutorials 
+- [x] Advanced debugging and reverse engineering 
+- [ ] Animal husbandry by tutorials 
+- [ ] Beginning tree surgery 
+- [ ] CVS by tutorials 
+- [ ] Fortran for fun and profit 
+- [x] RxSwift by tutorials 
+- [ ] Mastering Git 
+- [ ] Care and feeding of developers
+```
+
+When you’re done,  save your work and return to your terminal program. 
+
+In the background,  Git is watching what you’re doing.  Don’t believe me? Execute the following command to see that Git knows what you’ve done,  here: 
+
+```
+git status
+```
+
+git status  shows you the current state of your working tree  —  that is,  the collection of files in your directory that you’re working on.  In your case,  the working tree is everything inside your  ideas  directory.
+
+You should see the following output:
+```
+~/MasteringGit/ideas $ git status 
+On branch master 
+Your branch is up to date with  'origin/master'.
+
+Changes not staged  for  commit:   
+(use  "git add <file>..."  to update what will be committed)
+(use  "git checkout -- <file>..."  to discard changes  in  working directory)     
+
+modified:   books/book_ideas.md 
+
+no changes added to commit (use  "git add"  and/or  "git commit -a") 
+```
+  
+Ah, there’s the file you just changed:  books/book_ideas.md.  Git knows that you’ve modified it...  but what does it mean when Git says,  Changes not staged for commit?
+
+It’s time for a short diversion to look at the various states of your files in Git. Building up a mental model of the various states of Git will go a long way to understanding what Git is doing...  especially when Git does something that you don’t quite understand.
+
+### Working trees and staging  areas
+
+The  working copy  or  working tree  or  working directory  (language is great,  there’s always more than one name for something) is the collection of project files on your disk that you work with and modify directly,  just as you did in  books/book_ideas.md above.  Git thinks about the files in your working tree as being in three distinct states: 
+
+• Unmodified 
+
+• Modified 
+
+• Staged 
+
+Unmodified simply means that you haven’t changed this file since your last commit. Modified  is simply the opposite of that: Git sees that you’ve modified this file in some fashion since your last commit.  But what’s this  “staged”  state? 
+
+If you’re coming from the background of other version control systems,  such as Subversion,  you may think of a  “commit”  as simply saving the current state of all your modifications to the repository.  But Git is different,  and a bit more elegant.
+
+Instead,  Git lets you build your next commit incrementally as you work,  by using the concept of a  staging area. 
+
+```
+Note: If you’ve ever moved houses,  you’ll understand this paradigm.  When you are packing for the move,  you don’t take all of your belongings and throw them loosely into the back of the moving van.  (Well,  maybe you do,  but you shouldn’t,  really.) Instead,  you take a cardboard box (the staging area),  and fill it with similar things,  fiddle around to get everything packed properly in the box,  take out a few things that don’t quite belong,  and add a few more things you forgot about. When you’re satisfied that the box is  just  right,  you close up the box with packing tape and put the box in the back of the van.  You’ve used the box as your staging area in this case,  and taping up the box and placing on the van is like making a commit. 
+```
+
+Essentially,  as you work on bits and pieces of your project,  you can mark a change,  or set of changes,  as  “staged,”  which is how you tell Git, “Hey,  I want these changes to go into my next commit...  but I might have some more changes for you,  so just hold on to these changes for a bit.”  You can add and remove changes from this staging area as you go about your work,  and only commit that set of carefully curated changes to the repository when you’re good and ready.
+
+Notice above that I said, "Add and remove  changes  from the staging area,”  not  “Add and remove  files  from the staging area.”  There’s a distinct difference,  here,  and you’ll see this difference in just a bit as you stage your first few changes.
+
+### Staging  your  changes
+
+Git’s pretty useful in that it (usually) tells you what do to in the output to a command. Look back at the output from  git status  above,  and the  Changes not staged for commit  section gives you a few suggestions on what to do: 
+
+```
+Changes not staged  for  commit:   
+(use  "git add <file>..."  to update what will be committed)  
+(use  "git checkout -- <file>..."  to discard changes  in  working directory) 
+```
+
+So since you want to get this change eventually committed to the repository,  you’ll try the first suggestion:  git add.
+
+Execute the following command:
+
+```
+git add books/book_ideas.md 
+```
+Then, execute  git status  to see the results of what you’ve done:
+```
+~/MasteringGit/ideas $ git status 
+On branch master 
+Your branch is up to date with  'origin/master'. 
+
+Changes to be committed:   
+(use  "git reset HEAD <file>..."  to unstage)     
+
+modified:   books/book_ideas.md 
+```
+
+Ah, that seems a little better.  Git recognizes that you’ve now placed this change in the staging area. 
+
+But you have another modification to make to this file that you forgot about: Since you’re reading this book,  you should probably check off that entry for  “Mastering Git”  in there to mark it as complete. ]
+
+Open  books/book_ideas.md  in your text editor and place a lower-case  x  in the box to mark that item as complete:
+```
+- [x] Mastering Git 
+```
+
+Save your changes and exit out of your editor.  Now,  execute  git status  again (yes, you’ll use that command often to get your bearings),  and see what Git tells you: 
+
+```
+~/MasteringGit/ideas $ git status 
+On branch master 
+Your branch is up to date with  'origin/master'. 
+
+Changes to be committed:   
+(use  "git reset HEAD <file>..."  to unstage)     
+
+modified:   books/book_ideas.md 
+
+Changes not staged  for  commit:   
+
+(use  "git add <file>..."  to update what will be committed)   (use  "git checkout -- <file>..."  to discard changes  in  working directory)     modified:   books/book_ideas.md
+```
+
+What gives? Git now tells you that  books/book_ideas.md  is  both  staged and not staged? How can that be?
+
+Remember that you’re staging  changes  here,  not  files.  Git understands this,  and tells you that you have one change already staged for commit (the  Care and feeding of developers  change),  and that you have one change that’s not yet been staged  — marking  Mastering Git  as complete. 
+
+To see this in detail,  you can tell Git to show you what it sees as changed.  Remember that  diff  we talked about earlier? Yep,  that’s your next new command. 
+
+Execute the following command: 
+
+```
+git diff
+```
+
+You’ll see something similar to the following: 
+
+```
+diff --git a/books/book_ideas.md b/books/book_ideas.md 
+index 76dfa82..5086b1f 100644 
+--- a/books/book_ideas.md 
++++ b/books/book_ideas.md 
+@@ -7,5 +7,5 @@  
+- [ ] CVS by tutorials 
+- [ ] Fortran  for  fun and profit 
+- [x] RxSwift by tutorials 
+-- [ ] Mastering Git 
++- [x] Mastering Git 
+- [ ] Care and feeding of developers 
+```
+
+That looks pretty obtuse,  but a diff is simply a compact way of showing you what’s changed between two files.  In this case,  Git is telling you that you’re comparing two versions of the same file  —  the version of the file in your working directory,  and the version of the file that you told Git to stage earlier with the  git add  command:
+```
+--- a/books/book_ideas.md 
++++ b/books/book_ideas.md 
+```
+
+And it also shows you what’s changed between those two versions:
+```
+-- [ ] Mastering Git 
++- [x] Mastering Git
+```
+
+
+The  - prefix means that a line (or a portion of that line) has been deleted,  and the  + prefix means that a line (or a portion of that line) has been added.  In this case,  you deleted the space and added an  x  character. 
+
+You’ll learn more about  git diff  as you go along,  but that’s enough to get you going for now.  Time to stage your latest change.
+
+It gets a bit tedious to always type the full name of the file you want to stage with git add. And, let’s be honest,  most of the time you really just want to stage  all  of the changes you’ve made.  Git’s got your back with a great shortcut. 
+
+Execute the following:
+
+```
+git add . 
+```
+
+That full stop (or period) character tells Git to add all changes to the staging area, both in this directory and all other subdirectories.  It’s pretty handy,  and you’ll use it a lot in your workflow. 
+
+Again,  execute  git status  to see what’s ready in your staging area: 
+
+```
+~/MasteringGit/ideas $ git status 
+On branch master 
+Your branch is up to date with  'origin/master'. 
+
+Changes to be committed:   
+(use  "git reset HEAD <file>..."  to unstage)    
+
+modified:   books/book_ideas.md 
+```
+
+That looks good.  There’s nothing left unstaged,  and you’ll just see the changes to books/book_ideas.md  that are ready to commit. 
+
+As an interesting point,  execute  git diff  again to see what’s changed: 
+
+```
+~/MasteringGit/ideas $ git diff 
+~/MasteringGit/ideas $ 
+```
+
+Uh, that’s interesting.  git diff  reports that nothing has changed.  But if you think about it for a moment,  that makes sense.  git diff  compares your working tree to the staging area.  With  git add .,  you put everything from your working tree into the staging area,  so there  should  be no differences between your working tree and staging.
+
+If you want to be  really  thorough (or if you don’t trust Git quite yet),  you can ask Git to show you the differences that it’s staged for commit with an extra option on the end of  git diff. Execute the following command,  making note that it’s two  -- characters,  not one: 
+
+```
+git diff --staged
+```
+
+You’ll see a diff similar to the following:
+
+```
+~/MasteringGit/ideas $ git diff --staged
+diff --git a/books/book_ideas.md b/books/book_ideas.md 
+index 1a92ca4..5086b1f 100644 
+--- a/books/book_ideas.md 
++++ b/books/book_ideas.md 
+@@ -7,4 +7,5 @@ 
+- [ ] CVS by tutorials  
+- [ ] Fortran for fun and profit 
+- [x] RxSwift by tutorials 
+-- [ ] Mastering Git 
++- [x] Mastering Git
++- [ ] Care and feeding of developers
+```
+
+Here’s the lines that have changed:
+```
+-- [ ] Mastering Git 
++- [x] Mastering Git 
++- [ ] Care and feeding of developers
+```
+
+You’ve removed something from the Mastering Git line, added something to the Mastering Git line, and added the Care and feeding of developers line. That seems to be everything. Looks like it’s time to actually commit your changes to the repository.
+
+### Committing your changes
+
+You’ve made all of your changes, and you’re ready to commit to the repository. Simply execute the following command to make your first commit:
+
+```
+git commit
+```
+
+Git will take you into a rather confusing state. Here’s what I see in my terminal program:
+```
+# Please enter the commit message for your changes. Lines 
+starting
+# with '#' will be ignored, and an empty message aborts the commit. 
+# 
+# On branch master 
+# Your branch is up to date with 'origin/master'. 
+# 
+# Changes to be committed: 
+#       modified:   books/book_ideas.md
+
+"~/MasteringGit/ideas/.git/COMMIT_EDITMSG"  10L, 272C
+```
+
+If you haven’t been introduced to  vim  before,  welcome!  Vim  is the default text editor used by Git when it requires free text input from you. 
+
+If you read the first little bit of instruction that Git provides there,  it becomes apparent what Git is asking for: 
+```
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+```
+Ah  — Git needs a message for your commit. If you think back to the list of commits you saw earlier in the chapter,  you’ll notice that each entry had a little message with it:
+
+Working in  Vim isn’t terribly intuitive,  but it’s not hard once you know the commands. 
+
+Press the  I  key on your keyboard to enter  Insert  mode,  and you’ll see the status line at the bottom of the screen change to  -- INSERT-- to indicate this.  You’re free to type what you like here,  but stay simple and keep your message to just one line to start. 
+
+Type the following for your commit message: 
+
+```
+Added new book entry and marked Git book complete 
+```
+When you’re done,  you need to tell  Vim to save the file and exit.  Exit out of Insert mode by pressing the  Escape  key first. 
+
+Now, type a colon (Shift  +  ;  on my  American keyboard) to enter Ex mode,  which lets you execute commands. 
+
+To save your work and exit in one fell swoop,  type  wq  —  which means  “write”  and “quit”  in that order,  and press  Enter:
+
+```
+:wq
+```
+You’ll be brought back to the command line and shown the result of your commit: 
+```
+~/MasteringGit/ideas $ git commit 
+[master 57f31b3] Added new book entry and marked Git book 
+complete  
+1 file changed, 2 insertions(+), 1 deletion(-) 
+```
+
+That’s it! There’s your first commit.  One file changed,  with two insertions and one deletion.  That matches up with what you saw in  git diff  earlier in the chapter. 
+
+Now that you’ve learned how to commit changes to your files,  you’ll take a look at adding new files and directories to repositories. 
+
+### Adding directories 
+
+You have directories in your project to hold ideas for books,  videos and articles.  But it would be good to have a directory to also store ideas for written tutorials.  So you’ll create a directory and an idea file,  and add those to your repository.
+
+Back in your terminal program,  execute the following command to create a new directory named  tutorials: 
+
+```
+mkdir tutorials 
+```
+Then, confirm that the directory exists,  using the  ls  command:
+
+```
+~/MasteringGit/ideas $ ls 
+LICENSE     articles    tutorials 
+README.md   books       videos 
+```
+
+So the directory is there; now you can see how Git recognizes the new directory. Execute the following command:
+
+```
+git status 
+```
+You’ll see the following:
+
+```
+~/MasteringGit/ideas $ git status
+On branch master 
+Your branch is ahead of  'origin/master'  by 1 commit. 
+(use  "git push"  to publish your  local  commits) 
+
+nothing to commit, working tree clean
+```
+
+Er,  that doesn’t seem right.  Why can’t Git see your new directory? That’s by design, and it reflects the way that Git thinks about files and directories.
+
+### How Git views your working tree 
+
+At its core,  Git really only knows about  files,  and nothing about  directories.  Git thinks about files as string that point to entities Git can track.  If you think about this,  it makes some sense: If a file can be uniquely referenced as the full path to the file, then tracking directories separately is quite redundant.
+
+For instance,  here’s a list of all the files (excluding hidden files and directories) currently in your project: 
+```
+ideas/LICENSE 
+ideas/README.md 
+ideas/articles/clickbait_ideas.md 
+ideas/articles/live_streaming_ideas.md 
+ideas/articles/ios_article_ideas.md 
+ideas/books/book_ideas.md 
+ideas/videos/content_ideas.md 
+ideas/videos/platform_ideas.md 
+```
+
+This is a simplified version of how Git views your project: a list of paths to files that are tracked in the repository.  From this,  Git can easily and quickly re-create a directory and file structure when it clones a repository to your local system. 
+
+You’ll learn more about the inner workings of Git in the intermediate section of this book,  but,  for now,  you simply need to figure out how to get Git to pick up a new directory that you want to add to the repository. 
+
+### .keep  files
+
+The solution to making Git recognize a directory is clearly to put a file inside of it. But what if you don’t have anything yet to put here,  or you want an empty directory to show up in everyone’s clone of this project? 
+
+The solution is to use a placeholder file.  The usual convention is to create a hidden, zero-byte  .keep  file inside the directory you want Git to  “see.”
+
+To do this,  first navigate into the  tutorials  directory that you just created with the following command:
+
+```
+cd  tutorials
+```
+Then create an empty file named .keep, using the touch command for expediency:
+```
+touch .keep
+```
+
+```
+Note: The touch command was originally designed to set and modify the “modified” and “accessed” times of existing files. But one of the nice features of touch is that, if a specified file doesn’t exist, touch will automatically create the file for you.
+
+touch is a nice alternative to opening a text editor to create and save an empty file. Experienced command line users take advantage of this shortcut much of the time.
+```
+
+Execute the following command to view the contents of this directory, including hidden dotfiles:
+```
+ls -a
+```
+
+You should see the following:
+```
+~/MasteringGit/ideas/tutorials $ ls -a 
+.   ..  .keep
+```
+
+There’s your hidden file. Let’s see what Git thinks about this directory now. Execute the following command to move back to the main project directory:
+```
+cd ..
+```
+
+Now, execute git status to see Git’s understanding of the situation:
+```
+~/MasteringGit/ideas $ git status 
+On branch master Your branch is ahead of 'origin/master' by 1 commit. 
+(use "git push" to publish your local commits)  
+
+Untracked files:  
+(use "git add <file>..." to include in what will be committed)     
+
+tutorials/  
+
+nothing added to commit but untracked files present (use "git add" to track)
+```
+
+Git now understands that there’s something in that directory,  but that it’s untracked, which means you haven’t yet added whatever’s in that directory to the repository.  Adding the contents of that directory is easy to do with the  git add command.
+
+Execute the following command,  which is a slightly different form of  git add: 
+
+git add tutorials/* 
+
+While you  could  have just used  git add .  as before to add all files,  this form of  git add  is a nice way to  only  add the files in a particular directory or subdirectory.  In this case,  you’re telling Git to stage all files underneath the  tutorials  directory. 
+
+Git now tells you that it’s tracking this file,  and that it’s in the staging area:
+
+```
+~/MasteringGit/ideas $ git status 
+On branch master
+Your branch is ahead of  'origin/master'  by 1 commit.  
+(use  "git push"  to publish your  local  commits) 
+
+Changes to be committed:  
+(use  "git reset HEAD <file>..."  to unstage)    
+new file:   tutorials/.keep 
+```
+
+You can now commit this addition to the repository.  But,  instead of invoking that whole business with  Vim and a text editor,  there’s a shortcut way to commit a file to the repository and add a message all in one shot.
+
+Execute the following command to commit the staged changes to your repository:
+
+```
+You’ll see the following,  confirming your change committed:
+```
+
+```
+~/MasteringGit/ideas $ git commit -m  "Adding empty tutorials directory"
+
+[master ce6971f] Adding empty tutorials directory  
+1 file changed, 0 insertions(+), 0 deletions(-)  
+create mode 100644 tutorials/.keep 
+```
+```
+Note: Depending on the project or organization you’re working with,  you’ll often find that there are standards around what to put inside Git commit messages.
+
+The early portions of this book kept things simple with a single-line commit.
+message, but, in the advanced sections of this book, you’ll investigate why following some standards like the 50/72 rule proposed by Tim Pope at https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html will make your life easier when you get deeper into Git.
+```
+
+Once again, use git status to see that there’s nothing left to commit:
+```
+~/MasteringGit/ideas $ git status 
+On branch master 
+Your branch is ahead of 'origin/master' by 2 commits.   
+(use "git push" to publish your local commits) 
+
+nothing to commit, working tree clean
+```
+
+You may have realized that all these little commits give you a piecemeal view of what Git is doing with your files. And, as you keep working on your project, you’ll probably want to see a historical view of what you’ve done. Git provides a way to view the history of your files, also known as the log.
+
+### Looking at Git log
+
+You’ve done a surprising number of things over the last few chapters. To see what you’ve done, execute the following command:
+```
+git log
+```
+You’ll get a pile of output; I’ve shown the first few bits of my log below:
+
+```
+commit 761a50d148a9d241712e3be4630db3dad6e010c8 (HEAD -> master)
+Author: Chris Belanger <chris@example.com> 
+Date:   Sun Jun 16 06:53:03 2019 -0300      Adding empty tutorials directory  commit dbcfe56fa47a1a1547b8268a60e5b67de0489b95 
+Author: Chris Belanger <chris@example.com> 
+Date:   Sun Jun 16 06:51:54 2019 -0300      
+Added new book entry and marked Git book complete  
+commit c47084959448d2e0b6877832b6bd3ae70f70b187 (origin/master, origin/HEAD) Author: Chris Belanger <chris@razeware.com> 
+Date:   Thu Jan 10 10:32:55 2019 -0400
+
+Going to try this livestreaming thing  
+
+commit 629cc4d309cdcfe508791b09da447c3633448f07 
+Author: Chris Belanger <chris@razeware.com> 
+Date:   Thu Jan 10 10:32:17 2019 -0400      
+
+Some scratch ideas for the iOS team 
+. 
+. 
+. 
+.
+```
+
+You’ll see all of your commits, in reverse chronological order.
+
+```
+Note: Depending on the number of lines you can see at once in your terminal program, your output may be paginated, using a reader like less. If you see a colon on the last line of your terminal screen, this is likely the case. Simply press the Space bar to read subsequent pages of text.
+
+When you get to the end of the file, you’ll see (END). At any point, you can press the Q key to quit back to your command prompt.
+```
+
+The output above shows you your own commit messages, which are useful... to a point. Since Git knows everything about your files, you can use git log to see every detail of your commits, such as the actual changes, or diff, of each commit.To see this, execute the following command:
+
+```
+git log -p
+```
+
+This shows you the actual diffs of your commits, to help you see what specifically changed. Here’s a sample from my results:
+
+```
+commit ce6971fbdb945fc5fb01b739b9dea9c9ae193cae (HEAD -> master) 
+Author: Chris Belanger <chris@razeware.com> 
+Date:   Wed Jan 16 08:22:36 2019 -0400     
+
+Adding empty tutorials directory  
+
+diff --git a/tutorials/.keep b/tutorials/.keep 
+new file mode 100644 
+index 0000000..e69de29  
+
+commit 57f31b37ea843d1f0692178c99307d96850eca57
+Author: Chris Belanger <chris@razeware.com> 
+Date:   Fri Jan 11 10:16:13 2019 -0400
+
+Added new book entry and marked Git book complete diff --git a/books/book_ideas.md b/books/book_ideas.md index 1a92ca4..5086b1f 100644 --- a/books/book_ideas.md +++ b/books/book_ideas.md @@ -7,4 +7,5 @@  - [ ] CVS by tutorials  - [ ] Fortran  for  fun and profit  - [x] RxSwift by tutorials -- [ ] Mastering Git +- [x] Mastering Git +- [ ] Care and feeding of developers . . . 
+```
+
+In reverse chronological order,  I’ve added the  .keep  file to the  tutorials  directory, and made some modifications to the  book_ideas.md  file. Note: Chapter 6, “Viewing Git History,”  will take an in-depth look at the various facets of  git log,  and it will show you how to use the various options of  git log  to get some really interesting information about the activity on your repository. Now that you have a pretty good understanding of how to stage changes and commit them to your repository,  it’s time for the challenge for this chapter! Challenge: Add some tutorial ideas You have a great directory to store tutorial ideas,  so now it’s time to add those great ideas.  Your tasks in this challenge are: 1. Create a new file named  tutorial_ideas.md  inside the  tutorials  directory. 2. Add a heading to the file:  # Tutorial Ideas. 3. Populate the file with a few ideas,  following the format of the other files,  for example,  [ ] Mastering PalmOS. 4. Save your changes. 5. Add those changes to the staging area.
+
+
+
+6. Commit those staged changes with an appropriate message. If you get stuck,  or want to check your solution,  you can always find the answer to this challenge under the  challenges  folder for this chapter. Key points • A  commit is essentially a snapshot of the particular state of the set of files in the repository at a point in time. • The  working tree  is the collection of project files that you work with directly. • git status  shows you the current state of your working tree. • Git thinks about the files in your working tree as being in three distinct states: unmodified, modified and staged. • git add <filename>  lets you add changes from your working tree to the staging area. • git add .  adds all changes in the current directory and its subdirectories. • git add <directoryname>/*  lets you add all changes in a specified directory. • git diff  shows you the difference between your working tree and the staging area. • git diff --staged  shows you the difference between your staging area and the last commit to the repository. • git commit  commits all changes in the staging area and opens  Vim so you can add a commit message. • git commit -m "<your message here>"  commits your staged changes and includes a message without having to go through  Vim. • git log  shows you the basic commit history of your repository. • git log -p  shows the commit history of your repository with the corresponding diffs.
+
+Where to go from here? Now that you’ve learned how to build up commits in Git,  head on to the next chapter where you’ll learn more about the art of staging your changes,  including how Git understands the moving and deleting of files,  how to undo staged changes that you didn’t actually mean to make,  and your next new commands:  git reset,  git mv  and git rm.
+
+
+## Chapter 4: The  Staging Area 
+
+By Chris Belanger 
+
+In previous chapters,  you’ve gained some knowledge of the staging area of Git: You’ve learned how to stage modifications to your files,  stage the addition of new f iles to the repository,  view diffs between your working tree and the staging area,  and you even got a little taste of how  git log  works. But there’s more to the staging area than just those few operations.  At this point,  you may be wondering why the staging area is necessary. “Why can’t you just push all of your current updates to the repository directly?”,  you may ask.  It’s a good question, but there are issues with that linear approach; Git was actually designed to solve some of the common issues with direct-commit history that exist under other version control systems. In this chapter,  you’ll learn a bit more about how the staging area of Git works,  why it’s necessary,  how to undo changes you’ve made to the staging area,  how to move and delete files in your repository,  and more.
+
+
+
+Why staging exists Development is a messy process.  What,  in theory,  should be a linear,  cumulative construction of functionality in code,  is more often than not a series of intertwining, non-linear threads of dead-end code,  partly finished features,  stubbed-out tests, collections of  // TODO:  comments in the code,  and other things that are inherent to a human-driven and largely hand-crafted process. It’s noble to think that that you’ll work on just one feature or bug at a time; that your working tree will only ever be populated with clean,  fully documented code; that you’ll never have unnecessary files cluttering up your working tree; that the configuration of your development environment will always be in perfect sync with the rest of your team; and that you won’t follow any rabbit trails (or create a few of your own) while you’re investigating a bug. Git was built to compensate for this messy,  non-linear approach to development.  It’s possible to work on  lots  of things at once,  and selectively choose what you want to stage and commit to the repository.  The general philosophy is that a commit should be a logical collection of changes  that make sense as a unit  —  not just  “the latest collection of things I updated that may or may not be related.” A simple  staging  example In the example below,  I’m working on a website,  and I want my design guru to review my CSS changes.  I’ve changed the following files in the course of my work: index.html images/favicon.ico images/header.jpg images/footer.jpg images/profile.jpg styles/admin.css styles/frontend.css scripts/main.js scripts/admin.js scripts/email.js
+
+I’ve updated a bunch of files,  here,  not just the CSS.  And if I had to commit  everything I had changed in my working directory,  all at once,  I’d have everything jammed into one commit: And if I committed each little change as I made it,  my commit history might look like the following:raywenderlich.com
+
+
+
+Then, when my design guru wants to take a look at the CSS changes,  she’ll have to wade through my commit messages and potentially look through my diffs,  or even ping me on Slack to figure out what files she’s supposed to review. But,  instead,  if I were to stage and commit the HTML change first,  followed by the image changes,  followed by the JavaScript changes,  and then the CSS changes after that,  the commit history,  and even the mental picture of what I did,  becomes a  lot more clear: In later chapters of the book,  you’ll come to understand the power of being able to consciously choose various changes to stage for commit,  and even choose just a portion of a file to stage for commit.  But,  for now,  you’ll explore a few more common scenarios,  involving moving files,  deleting files,  and even undoing your changes that you weren’t  quite  ready to commit. Undoing staged changes It’s quite common that you’ll change your mind about a particular set of staged changes,  or you might even use something like  git add .  and then realize that there was something in there you didn’t quite want to stage. You’ve got a file already for book ideas,  but you also want to capture some ideas for non-technical management books.  Not  everyone  wants to learn how to program,  it seems.
+
+
+Head back to your terminal program,  and create a new file in the  books  directory, named  management_book_ideas.md: touch books/management_book_ideas.md But,  wait  —  the video production team pings you and urgently requests that you update the video content ideas file,  since they’ve just found someone to create the “Getting started with Symbian”  course,  and,  oh,  could you also add, “Advanced MOS 6510 Programming” to the list? OK, not a huge issue.  Open up  videos/content_ideas.md,  mark the  “Getting started with Symbian”  entry as complete by putting an  “x”  between the brackets,  and add a line to the end for the  “Advanced MOS 6510 Programming”  entry.  When you’re done, your file should look like this: # Content Ideas Suggestions for new content to appear as videos: [x] Beginning Pascal [ ] Mastering Pascal [x] Getting started with Symbian [ ] Coding for the Psion V [ ] Flash for developers [ ] Advanced MOS 6510 Programming Now, execute the following command to add those recent changes to your staging area: git add . Execute the following command to see what Git thinks about the current state of things: git status You should see the following: On branch master Your branch is ahead of  'origin/master'  by 3 commits.   (use  "git push"  to publish your  local  commits) Changes to be committed:   (use  "git reset HEAD <file>..."  to unstage)     new file:   books/management_book_ideas.md
+modified:   videos/content_ideas.md
+
+
+
+Oh, crud.  You accidentally added that empty  books/management_book_ideas.md. You likely didn’t want to commit that file just yet,  did you? Well,  now you’re in a pickle.  Now that something is in the staging area,  how do you get rid of it? Fortunately,  since Git understands everything that’s changed so far,  it can easily revert your changes for you.  The easiest way to do this is through  git reset. git reset Execute the following command to remove the change to  books/ management_book_ideas.md  from the staging area: git reset HEAD books/management_book_ideas.md git reset  restores your environment to a particular state.  But wait  —  what’s this HEAD  business? HEAD  is simply a label that references the most recent commit.  You may have already noticed the term  HEAD  in your console output while working through earlier portions of the book. In case you missed it,  execute the following command to look at the log: git  log If you look at the top lines of the output in your console,  you’ll see something similar to the following: commit 6c88142dc775c4289b764cb9cf2e644274072102 (HEAD -> master) Author: Chris Belanger <chris@razeware.com> Date:   Sat Jan 19 07:16:11 2019 -0400     Adding some tutorial ideas That  (HEAD -> master)  note tells you that the latest commit on your local system is as you expect  —  the commit where you added those tutorial ideas  —  and that this commit was done on the  master  branch.  You’ll get into branches a little later in this section,  but,  for now,  simply understand that  HEAD  keeps track of your latest commit. So,  git reset HEAD books/management_book_ideas.md, in this context means “use  HEAD  as a reference point,  restore the staging area to that point,  but only restore any changes related to the  books/management_book_ideas.md  file.”
+
+
+
+To see that this is actually the case,  execute  git status  once again: ~/MasteringGit/ideas $ git status On branch master Your branch is ahead of  'origin/master'  by 3 commits.   (use  "git push"  to publish your  local  commits) Changes to be committed:   (use  "git reset HEAD <file>..."  to unstage)     modified:   videos/content_ideas.md Untracked files:   (use  "git add <file>..."  to include  in  what will be committed)     books/management_book_ideas.md That looks better: Git is no longer tracking  books/management_book_ideas.md, but it’s still tracking your changes to  videos/content_ideas.md.  Phew  —  you’re back to where you wanted to be. Better commit that last change before you get into more trouble.  Execute the following command to add another commit: git commit -m  "Updates book ideas for Symbian and MOS 6510" Now, you’ve been thinking a bit,  and you don’t think you should keep those ideas about the video platform itself in the  videos  folder.  They more appropriately belong in a new folder:  website. Moving files in  Git Create the folder for the website ideas with the following command: mkdir website Now, you need to move that file from the  videos  directory to the  website  directory. Even with your short experience with Git,  you probably suspect that it’s not quite as simple as just moving the file from one directory to the other.  That’s correct,  but it’s instructive to see  why  this is.
+
+
+So, you’ll move it the brute force way first, and see how Git interprets your actions. Execute the following command to use the standard mv command line tool to move the file from one directory to the other:mv videos/platform_ideas.md websiteNow, execute git status to see what Git thinks about what you’ve done:~/MasteringGit/ideas $ git status On branch master Your branch is ahead of 'origin/master' by 4 commits.   (use "git push" to publish your local commits)  Changes not staged for commit:   (use "git add/rm <file>..." to update what will be committed)   (use "git checkout -- <file>..." to discard changes in working directory)      deleted:    videos/platform_ideas.md  Untracked files:   (use "git add <file>..." to include in what will be committed)      books/management_book_ideas.md     website/  no changes added to commit (use "git add" and/or "git commit -a")Well, that’s a bit of a mess. Git thinks you’ve deleted a file that is being tracked, and it also thinks that you’ve added this website bit of nonsense. Git doesn’t seem so smart after all. Why doesn’t it just see that you’ve moved the file?The answer is in the way that Git thinks about files: as full paths, not individual directories. Take a look at how Git saw this part of the working tree before the move:videos/platform_ideas.md (tracked) videos/content_ideas.md (tracked)And, after the move, here’s what it sees:videos/platform_ideas.md (deleted) videos/content_ideas.md (tracked) website/platform_ideas.md (untracked)Remember, Git knows nothing about directories: It only knows about full paths. Comparing the two snippets of your working tree above shows you exactly why git status reports what it does.
+
+
+Seems like the brute force approach of  mv  isn’t what you want.  Git has a built-in  mv command to move things  “properly”  for you. Move the file back with the following command: mv website/platform_ideas.md videos/ Now, execute the following: git mv videos/platform_ideas.md website/ And execute  git status  to see what’s up:  ~/MasteringGit/ideas $ git status On branch master Your branch is ahead of  'origin/master'  by 4 commits.   (use  "git push"  to publish your  local  commits) Changes to be committed:   (use  "git reset HEAD <file>..."  to unstage)     renamed:    videos/platform_ideas.md -> website/ platform_ideas.md Untracked files:   (use  "git add <file>..."  to include  in  what will be committed)     books/management_book_ideas.md That looks better.  Git sees the file as  “renamed,”  which makes sense,  since Git thinks about files in terms of their full path.  And Git has also staged that change for you. Nice! Commit those changes now: git commit -m  "Moves platform ideas to website directory" Your ideas project is now looking pretty ship-shape.  But,  to be honest,  those live streaming ideas are pretty bad.  Perhaps you should just get rid of them now before too many people see them.
+
+
+
+Deleting  files in  Git The impulse to just delete/move/rename files as you’d normally do on your f ilesystem is usually what puts Git into a tizzy,  and it causes people to say they don’t “get”  Git.  But if you take the time to instruct Git on what to do,  it usually takes care of things quite nicely for you. So  — that live streaming ideas file has to go.  The brute-force approach,  as you may guess,  isn’t the best way to solve things,  but let’s see if it causes Git any grief. Execute the following command to delete the live streaming ideas file with the  rm command: rm articles/live_streaming_ideas.md And then execute  git status  to see what Git’s reaction is: ~/MasteringGit/ideas $ git status On branch master Your branch is ahead of  'origin/master'  by 5 commits.   (use  "git push"  to publish your  local  commits) Changes not staged  for  commit:   (use  "git add/rm <file>..."  to update what will be committed)   (use  "git checkout -- <file>..."  to discard changes  in  working directory)     deleted:    articles/live_streaming_ideas.md Untracked files:   (use  "git add <file>..."  to include  in  what will be committed)     books/management_book_ideas.md no changes added to commit (use  "git add"  and/or  "git commit -a") Oh, that’s not so bad.  Git recognizes that you’ve deleted the file and is prompting you to stage it. Do that now with the following command: git add articles/live_streaming_ideas.md
+
+
+
+Then, see what’s up with  git status: ~/MasteringGit/ideas $ git status On branch master Your branch is ahead of  'origin/master'  by 5 commits.   (use  "git push"  to publish your  local  commits) Changes to be committed:   (use  "git reset HEAD <file>..."  to unstage)     deleted:    articles/live_streaming_ideas.md Untracked files:   (use  "git add <file>..."  to include  in  what will be committed)     books/management_book_ideas.md Well,  that was a bit of a roundabout way to do things.  But just like  git mv,  you can use the  git rm  command to do this in one fell swoop. Restoring deleted files First,  you need to get back to where you were.  Unstage the change to the live streaming ideas file with your best new friend,  git reset: git reset HEAD articles/live_streaming_ideas.md That removes that change from the staging area  —  but it doesn’t  restore  the file itself in your working tree.  To do that,  you’ll need to tell Git to retrieve the latest committed version of that file from the repository. Execute the following to restore your file to its original infamy: git checkout HEAD articles/live_streaming_ideas.md You’re back to where you started. Now, get rid of that file with the following command: git rm articles/live_streaming_ideas.md And, finally,  commit that change with an appropriate message: git commit -m  "Removes terrible live streaming ideas" Looks like you’ll have to leave the live streaming to the experts: fourteen-year-olds on YouTube with too much time on their hands and too little common sense.
+
+
+
+That empty file for management book ideas is still hanging around.  Since you don’t have any good ideas for that file yet,  you may as well commit it and hope that someone down the road can populate it with good ways to be an effective manager. Add that empty file with the following command: git add books/management_book_ideas.md And commit it with a nice comment: git commit -m  "Adds all the good ideas about management" It’s not all bad:  Abandoning your attempts to building a career in live streaming  and management gives you more time to take on this next challenge! Challenge: Move, delete  and restore  a  file This challenge takes you through the paces of what you just learned.  You’ll need to do the following: 1. Move the newly added  books/management_book_ideas.md  to the  website directory with the  git mv  command. 2. You’ve changed your mind and don’t want  management_book_ideas.md anymore, so remove that file completely with the  git rm  command.  Git will give you an error when you do this,  but look at the suggested actions in the error closely to see how to solve this problem this with the  -f  option,  and try again. 3. But now you’re having second thoughts: Maybe you  do  have some good ideas about management. Restore that file to its original location. Remember to use the  git status  command to get your bearings when you need to. Liberal use of  git status  will definitely help you understand what Git is doing at each stage of this challenge. If you get stuck,  or want to check your solution,  you can always find the answer to this challenge under the  challenges  folder for this chapter.
+
+
+
+Key points • The  staging area  lets you construct your next commit in a logical,  structure fashion. • git reset HEAD <filename>  lets you restore your staging environment to the last commit state. • Moving files around and deleting them from the filesystem,  without notifying Git, will cause you grief. • git mv moves files around and stages the change,  all in one action. • git rm removes files from your repository and stages the change,  again,  in one action. • Restore deleted and staged files with  git reset HEAD <filename>  followed by git checkout HEAD <filename> Where to go from here? That was quite a ride! You’ve gotten deeper into understanding how Git sees the world; building up a parallel mental model will help you out immensely as you use Git more in your daily workflow. Sometimes, you may have files that you explicitly  don’t  want to add to your repository,  but that you want to keep around in your working tree.  You can tell Git to ignore things in your working tree,  and even tell Git to ignore particular files across all  of your projects through the magic of the simple file known as  .gitignore  —  which you’ll learn all about in the next chapter!
+
+## Chapter 5: Ignoring  Files in Git 
+
+
+By Chris Belanger 
+
+You’ve spent a fair bit of time learning how to get Git to track files in your repository, and how to deal with the ins and outs of Git’s near-constant surveillance of your activities.  So it might come as a wonder that you’d ever want Git to actively  ignore things in your repository. Why wouldn’t you want Git to track everything in your project? Well,  there are quite a few situations in which you might not want Git to track  everything. A good example would be any files that contain  API keys,  tokens,  passwords or other secrets that you definitely need for testing,  but you don’t want them sitting in a repository  —  especially a public repository  —  for all to see. Depending on your development platform,  you may have lots of build artifacts or generated content sitting around inside your project directory,  such as linker files, metadata,  the resulting executable and other similar things.  These files are regenerated each time you build your project,  so you definitely don’t want Git to track these files.  And then there are those persnickety things that some OSes add into your directories without asking,  such as  .DS_Store  files on macOS.
+
+
+Introducing  .gitignore Git’s answer to this is the  .gitignore  file,  which is a set of rules held in a file that tell Git to not track files or sets of files.  That seems like a very simple solution,  and it is. But the real power of  .gitignore  is in its ability to pattern-match a wide range of files so that you don’t have to spell out every single file you want Git to ignore,  and you can even instruct Git to ignore the same types of files across multiple projects. Taking that a step further,  you can have a global  .gitignore  that applies to all of your repositories,  and then put project-specific  .gitignore  files within directories or subdirectories under the projects that need a particularly pedantic level of control. In this chapter,  you’ll learn how to configure your own  .gitignore,  how to use some prefabricated  .gitignore  files from places like GitHub,  and how to set up a global  .gitignore  to apply to all of your projects. Getting started Imagine that you have a tool in your arsenal that  “builds”  your markdown into HTML in preparation for deploying your stunning book,  tutorial and other ideas to a private website for your team to comment on. In this case,  the HTML files would be the generated content that you  don’t  want to track in the repository.  You’d like to render them locally as part of your build process so you could preview them,  but you’d never edit the HTML directly: It’s always rendered using the tool. Create a new directory in the root folder of your project to hold these generated files, using the following command: mkdir sitehtml Now, create an empty HTML file in there (keep that imagination going,  friend),  with the following command: touch sitehtml/all-todos.html Run  git status  to see that Git recognizes the new content: /MasteringGit/ideas $ git status On branch master Your branch is ahead of  'origin/master'  by 7 commits.   (use  "git push"  to publish your  local  commits)
+
+
+
+Untracked files:   (use  "git add <file>..."  to include  in  what will be committed)     sitehtml/ nothing added to commit but untracked files present (use  "git add"  to track) So Git,  once again,  sees what you’re doing.  But here’s how to tell Git to turn a blind eye. Create a new file named  .gitignore  in the root folder of your project: touch .gitignore And add the following line to your newly created  .gitignore: *.html Save and exit.  What you’ve done is to tell Git, "For this project,  ignore all files that match this pattern."  In this case,  you’ve asked it to ignore all files that have an  .html extension. Now, see what  git status  tells you: ~/MasteringGit/ideas $ git status On branch master Your branch is ahead of  'origin/master'  by 7 commits.   (use  "git push"  to publish your  local  commits) Untracked files:   (use  "git add <file>..."  to include  in  what will be committed)     .gitignore nothing added to commit but untracked files present (use  "git add"  to track) Git sees that you’ve added  .gitignore,  but it no longer views that HTML file as “untracked,”  even through it’s buried down in a subdirectory. Now, what if you were fine with ignoring HTML files in subdirectories,  but you wanted all HTML files in the top-level directory of your project to be tracked? You could  theoretically re-create the same  .gitignore  files in each of your subdirectories and remove this top-level  .gitignore,  but that would be amazingly tedious and would not scale well.
+
+Instead,  you can use some clever pattern-matching in your top-level  .gitignore  to only ignore subdirectories. Edit the single line in your  .gitignore  as follows: */*.html Save and exit.  This new pattern tells Git, "Ignore all HTML files that  aren’t  in the toplevel directory." To see that this is true,  create a new HTML file in the top-level directory of your project: touch index.html Run  git status  to see if Git does,  in fact,  recognize the HTML files in the top-level directory,  while still ignoring the ones underneath: /MasteringGit/ideas $ git status On branch master Your branch is ahead of  'origin/master'  by 7 commits.   (use  "git push"  to publish your  local  commits) Untracked files:   (use  "git add <file>..."  to include  in  what will be committed)     .gitignore     index.html nothing added to commit but untracked files present (use  "git add"  to track) Git sees the top-level HTML file as untracked,  but it’s still ignoring the other HTML f ile down in the  sitehtml  directory,  just as you’d planned. Nesting .gitignore  files You can easily nest  .gitignore  files in your project.  Imagine that you have a subdirectory with HTML files that are referenced from your  index.html.  These aren’t generated by your imaginary build process but,  rather,  maintained by hand,  and you want to make sure Git is able to track these. Create a new directory and name it  htmlrefs: mkdir htmlrefs
+
+
+
+Now, create an HTML file in that subdirectory: touch htmlrefs/utils.html And create a  .gitignore  file in that directory as well: touch htmlrefs/.gitignore Open that file and add the following line to it: !/*.html Save and exit.  The exclamation mark (!) negates the pattern in this case,  and the slash (/) means  “start this rule from this directory.”  So this rule says, “Despite any higher-level rules,  don’t ignore any HTML files,  starting in this directory or lower.” Execute  git status  to see if this is true: ~/MasteringGit/ideas $ git status On branch master Your branch is ahead of  'origin/master'  by 7 commits.   (use  "git push"  to publish your  local  commits) Untracked files:   (use  "git add <file>..."  to include  in  what will be committed)     .gitignore     htmlrefs/     index.html nothing added to commit but untracked files present (use  "git add"  to track) Git now sees the contents of your  htmlrefs  directory as untracked,  just as you wanted. Now that you’re happy with the current arrangement of your  .gitignore  files,  you can stage and commit those changes. Stage all changes with the following command: git add . And commit those changes as well: git commit -m  "Adding .gitignore files and HTML"
+
+
+
+
+Setting up  .gitignore  files on a project-by-project basis will only get you so far, though.  There are things  —  like the aforementioned  .DS_Store  files that macOS  so helpfully adds to your directories  —  that you want to ignore all of the time.  Git has the concept of a  global  .gitignore  that you can use for cases like this. Looking at the  global .gitignore Execute the following command to find out if you already have a global  .gitignore: git config --global core.excludesfile If that command returns nothing,  then you don’t have one set up just yet.  No worries; it’s easy to create one. Create a file in a convenient location  —  in this case,  your home directory  —  and name it something obvious: touch ~/.gitignore_global And now you can use the  git config  command to tell Git that it should look at this f ile from now on as your global  .gitignore: git config --global core.excludesfile ~/.gitignore_global So now if I ask Git where my global  .gitignore  lives,  it tells me the following: ~/MasteringGit/ideas $ git config --global core.excludesfile /Users/chrisbelanger/.gitignore_global But now that you have a global  .gitignore...  what should you put in it? Finding  sample  .gitignore  files This is one of those situations wherein you don’t have to reinvent the wheel. Hundreds of thousands of developers have come before you,  and they’ve already f igured out what the best configuration is for your particular situation. One of the better collections of prefabricated  .gitignore  files is hosted by GitHub  — no surprise there,  I’m sure.  GitHub has files for most OSes,  programming languages and code editors.
+
+
+
+
+Head over to  https://github.com/github/gitignore  and have a look through the packages it offers.  Sample files that are appropriate for your OS can be found in the Global  subfolder of the repository. Go into the  Global  subfolder (or simply navigate to  https://github.com/github/ gitignore/tree/master/Global) and find the one for your local system. There’s a  Windows.gitignore,  a  macOS.gitignore,  a  Linux.gitignore  and many more, all waiting for you to add them to your own  .gitignore.  And that brings you to the challenge for this chapter! Challenge: Populate  your  local .gitignore This challenge should be rather straightforward and give you a good starting point for your global  .gitignore.  Your goal is to find the correct  .gitignore  for your own OS, get that file from the GitHub repository,  and add the contents of that file to your global  .gitignore. 1. Navigate to  https://github.com/github/gitignore/tree/master/Global. 2. Find the correct  .gitignore  for your own OS. 3. Take the contents of that OS-specific  .gitignore,  and add it to your own global  .gitignore. If you get stuck,  or want to check your solution,  you can always find the answer to this challenge under the challenges folder for this chapter. Key points • .gitignore  lets you configure Git so that it ignores specific files or files that match a certain pattern. • *.html in your  .gitignore  matches on all files with an  .html  extension,  in any directory or subdirectory of your project.
+
+
+
+
+
+• */*.html  matches all files with an  .html  extension,  but only in subdirectories of your project. • ! negates a matching rule. • You can have multiple  .gitignore  files inside various directories of your project to override higher-level matches in your project. • You can find where your global  .gitignore  lives with the command  git config -global core.excludesfile ~/.gitignore_global. • GitHub hosts some excellent started  .gitignore  files at  https://github.com/github/ gitignore. Where to go from here? As you work on more and more complex projects,  especially across multiple codebased and coding languages,  you’ll find that the power of the global  .gitignore, coupled with the project-specific (and even folder-specific)  .gitignore  files,  will be an indispensable part of your Git workflow. The next chapter will take you through a short diversion into the various workings of git log. Yes,  you’ve already used this command,  but this command has some clever options that will help you view the history of your project in an efficient and highly readable manner.  You’ll also learn about Git aliases,  which will help you create some “shortcut”  commands to make your life on the Git command line a whole lot easier!
+
+
+## Chapter 6: Git Log  & History 
+
+By Chris Belanger 
+
+You’ve been quite busy in your repository,  adding files,  making changes,  undoing changes and making intelligent commits with good,  clear messages.  But as time goes on,  it gets harder and harder to remember what you did  —  and when you did it.  When you mess up your project (not if,  but  when),  you’ll want to be able to go back in history and find a commit that worked,  and rewind your project back to that point in time. Viewing Git history Git keeps track of pretty much everything you do in your repository,  and you’ve already seen this in action,  in a brief manner,  in previous chapters,  through your use of the  git log  command.  But there’s many ways you can view the data provided by git log  that can tell you some incredibly interesting things about your repository and your history.  In fact,  you can even use  git log  to create a graphical representation of your repository to get a better mental image of what’s going on.
+
+
+Vanilla  git log You can open up your terminal app,  and execute  git log  to see the basic,  vanillaf lavor history of your repository that you’ve become accustomed to: commit 477e542bfa35942ddf069d85fbe3fb0923cfab47 (HEAD -> master) Author: Chris Belanger <chris@razeware.com> Date:   Wed Jan 23 16:49:56 2019 -0400     Adding .gitignore files and HTML commit ffcedc2397503831938894edffda5c5795c387ff Author: Chris Belanger <chris@razeware.com> Date:   Tue Jan 22 20:26:30 2019 -0400     Adds all the good ideas about management commit 84094274a447e76eb8f55def2c38b909ef94fa42 Author: Chris Belanger <chris@razeware.com> Date:   Tue Jan 22 20:17:03 2019 -0400     Removes terrible live streaming ideas commit 67fd0aa99b5afc18b7c6cc9b4300a07e9fc88418 Author: Chris Belanger <chris@razeware.com> Date:   Tue Jan 22 19:47:23 2019 -0400     Moves platform ideas to website directory This shows you a list of the  ancestral commits  —  that is,  the set of commits that form the history of the current  head,  which in this case,  is the most recent commit in the  master  branch of your repository. Press  Q  to exit out of this view. The basic  git log  command shows you  all  of the ancestral commits for this branch. What if you only wanted to see a few,  say,  three? Limiting  results This is straightforward; simply execute the following command to show the number of commits you’d like to see,  starting from the most recent: git  log  -3
+
+Git will then show you just the three most recent commits.  You can replace the  3  in the above example to show any number of commits you’d prefer. That’s a little more manageable,  but there’s still a lot of detail in there.  Wouldn’t it be nice if there was a way to view  just  the commit messages,  and filter out all the other extra information? There is: Execute the following command to see a more compact view of the repository history: git  log  --oneline You’ll see a quick,  compact view of the commit history which is arguably  far  more readable than the original output from  git log: ~/MasteringGit/ideas $ git  log  --oneline 477e542 (HEAD -> master) Adding .gitignore files and HTML ffcedc2 Adds all the good ideas about management 8409427 Removes terrible live streaming ideas 67fd0aa Moves platform ideas to website directory 0ddfac2 Updates book ideas  for  Symbian and MOS 6510 6c88142 Adding some tutorial ideas . . . This also shows you the  short hash  of a commit. Although you haven’t looked at hashes in depth yet,  there are long and short hashes for each commit that uniquely identify a commit within a repository. For instance,  if I take a look at the first line of the most recent commit on my repo with  git log -1  (that’s the number  “1”,  not the letter  “l”),  I see the following: commit 477e542bfa35942ddf069d85fbe3fb0923cfab47 (HEAD -> master) Now, to compare,  I look at that same single commit with  git log -1 --oneline (yes,  you can stack multiple options with  git log),  I get the following: 477e542 (HEAD -> master) Adding .gitignore files and HTML The short hash is simply the first seven characters of the long hash; in this case, 477e542. For the average-sized development project,  seven hexadecimal digits provides you with more than a quarter of a  billion  short hashes,  so the possibility of hashes colliding between various commits is quite small.  When you ramp up to massively sized Git repositories that live on for years,  or even decades,  the chance of two commits having the same hash becomes a reality.
+
+
+Older versions of Git allowed you to configure the number of hash characters to use for your repository, but more recent versions of Git (from about 2017 onward) dynamically adapt this setting to suit the size of your project, so you don’t usually have to worry about it.Note: Are you wondering why some options to commands are preceded with a single dash, and others are preceded with double dashes? This has its roots way back in the history of command-line based operating systems. Generally, commands that have double dashes are the “long form” of a command, and are there for clarity. For instance, the command git log -p that you’ve used before, shows the diffs of your commits. But there is another command that only differs by the fact that the option is in uppercase, git log -P, which does something entirely different.Since all these commands can get a bit confusing, especially where case matters, many modern command-line utilities provide long form alternatives to commands to be more clear about the the intent of a particular option. In the above example, you can use git log --patch and git log -p interchangeably, because they mean exactly the same thing. The --patch option is more clear, but -p is more compact.Graphical views of your repositorySo what else can git log do? Well, Git has some simple methods to show you the branching history of your repository. Execute the following command to see a rather verbose view of the “tree” structure of your repository history:git log --graphPage through a few results by pressing the spacebar (or scroll using the arrow keys), and you’ll see where I merged a branch in an early version of the repository:. . .  commit fbc46d3d828fa57ef627742cf23e865689bf01a0 | Author: Chris Belanger <chris@razeware.com> | Date:   Thu Jan 10 10:18:14 2019 -0400 | |     Adding files for article ideas |
+
+
+*   commit 5fcdc0e77adc11e0b2beca341666e89611a48a4a |\  Merge: 39c26dd cfbbca3 | | Author: Chris Belanger <chris@razeware.com> | | Date:   Thu Jan 10 10:14:56 2019 -0400 | | | |     Merge branch 'video_team' | | | * commit cfbbca371f4ecc80796a6c3fc0c084ebe181edf0 | | Author: Chris Belanger <chris@razeware.com> | | Date:   Thu Jan 10 10:06:25 2019 -0400 | | | |     Removing brain download as per ethics committee . . .And if you page down a little more, you’ll see the point where I created the branch off of master:* | commit 39c26dd9749eb627056b938313df250b669c1e4c | | Author: Chris Belanger <chris@razeware.com> | | Date:   Thu Jan 10 10:13:32 2019 -0400 | | | |     I should write a book on git someday | | * | commit 43b4998d7bf0a6d7f779dd2c0fa4fe17aa3d2453 |/  Author: Chris Belanger <chris@razeware.com> |   Date:   Thu Jan 10 10:12:36 2019 -0400 | |       Adding book ideas file | * commit becd762cea13859ac32841b6024dd4178a706abe | Author: Chris Belanger <chris@razeware.com> | Date:   Thu Jan 10 09:49:23 2019 -0400 | |     Creating the directory structure | * commit 73938223caa4ad5c3920a4db72920d5eda6ff6e1   Author: crispy8888 <chris@razeware.com>   Date:   Wed Jan 9 20:59:40 2019 -0400        Initial commitBut that’s still too much information. How could you collapse this tree-like view to only see the commit messages, but still see the branching history? That’s right — by stacking the options to git log. Execute the following to see a more condensed view:git log --oneline --graph
+*   
+
+You’ll see a nice, compact view of the history and branching structure:~/MasteringGit/ideas $ git log --oneline --graph * 477e542 (HEAD -> master) Adding .gitignore files and HTML * ffcedc2 Adds all the good ideas about management * 8409427 Removes terrible live streaming ideas * 67fd0aa Moves platform ideas to website directory * 0ddfac2 Updates book ideas for Symbian and MOS 6510 * 6c88142 Adding some tutorial ideas * ce6971f Adding empty tutorials directory * 57f31b3 Added new book entry and marked Git book complete * c470849 (origin/master, origin/HEAD) Going to try this livestreaming thing * 629cc4d Some scratch ideas for the iOS team * fbc46d3 Adding files for article ideas *   5fcdc0e Merge branch 'video_team' |\ | * cfbbca3 Removing brain download as per ethics committee | * c596774 Adding some video platform ideas | * 06f468e Adding content ideas for videos * | 39c26dd I should write a book on git someday * | 43b4998 Adding book ideas file |/ * becd762 Creating the directory structure * 7393822 Initial commitViewing non-ancestral historyGit’s not showing you the complete history, though. It’s only showing you the history of things that have happened on the master branch. To tell Git to show you the complete history of everything it knows about, add the --all option to the previous command:git log --oneline --graph --allYou’ll see that there’s an origin/clickbait branch off of master that Git wasn’t telling you about earlier:* 477e542 (HEAD -> master) Adding .gitignore files and HTML * ffcedc2 Adds all the good ideas about management * 8409427 Removes terrible live streaming ideas * 67fd0aa Moves platform ideas to website directory * 0ddfac2 Updates book ideas for Symbian and MOS 6510 * 6c88142 Adding some tutorial ideas * ce6971f Adding empty tutorials directory * 57f31b3 Added new book entry and marked Git book complete * c470849 (origin/master, origin/HEAD) Going to try this 
+
+
+
+
+livestreaming thing * 629cc4d Some scratch ideas for the iOS team | * e69a76a (origin/clickbait) Adding suggestions from Mic | * 5096c54 Adding first batch of clickbait ideas |/ * fbc46d3 Adding files for article ideas *   5fcdc0e Merge branch 'video_team' |\ | * cfbbca3 Removing brain download as per ethics committee | * c596774 Adding some video platform ideas | * 06f468e Adding content ideas for videos * | 39c26dd I should write a book on git someday * | 43b4998 Adding book ideas file |/Using Git shortlogGit provides a very handy companion to git log in the form of git shortlog. This is a nice way to get a summary of the commits, perhaps for including in the release notes of your app. Sometimes “bug fixes and performance improvements” just isn’t quite enough detail, you know?Execute the following command to see who’s made commits to this repository:git shortlogI see the following collection of commits for this repository:Chris Belanger (18):       Creating the directory structure       Adding content ideas for videos       Adding some video platform ideas       Removing brain download as per ethics committee       Adding book ideas file       I should write a book on git someday       Merge branch 'video_team'       Adding files for article ideas       Some scratch ideas for the iOS team       Going to try this livestreaming thing       Added new book entry and marked Git book complete       Adding empty tutorials directory       Adding some tutorial ideas       Updates book ideas for Symbian and MOS 6510       Moves platform ideas to website directory       Removes terrible live streaming ideas       Adds all the good ideas about management       Adding .gitignore files and HTML
+
+
+
+
+crispy8888 (1):       Initial commit I can see that I have 18 commits to this repository,  and then there’s this  crispy8888 chap that created the initial repository.  Well,  that was nice of him. You’ll notice that,  in contrast to the standard  git log  command,  git shortlog orders the commits in increasing time order.  That makes more sense from a summary standpoint,  than showing everything in reverse-time order. So far,  you’ve seen how to use  git log  and  git shortlog  to give you a high-level view of the repository history,  with as much detail as you like.  But sometimes you want to see a particular action in the repository.  You know what you want to search for,  but do you really have to scroll through all that output to retrieve what you’re looking for? Git provides some excellent search functionality that you can use to find information about one particular file,  or even particular changes across many files. Searching Git history Imagine that you wanted to see just the commits that this  crispy8888  fellow had made in the repository.  Git gives you the ability to filter the output of  git log  to a particular author. Execute the following command: git  log  --author=crispy8888 --oneline Git shows you the one change this fellow made: 7393822 Initial commit If you want to search on a name that is made up of two or more parts,  simply enclose the name in quotation marks: git  log  --author="Chris Belanger"  --oneline You can also search the commit messages of the repository,  independent of who made the change.
+
+
+
+Execute the following to find the commits,  which have a commit message that contains the word  “ideas”: git  log  --grep=ideas --oneline You should see something similar to the following: ffcedc2 Adds all the good ideas about management 8409427 Removes terrible live streaming ideas 67fd0aa Moves platform ideas to website directory 0ddfac2 Updates book ideas  for  Symbian and MOS 6510 6c88142 Adding some tutorial ideas 629cc4d Some scratch ideas  for  the iOS team fbc46d3 Adding files  for  article ideas 43b4998 Adding book ideas file c596774 Adding some video platform ideas 06f468e Adding content ideas  for  videos Note: Wondering what  grep  means?  grep  is a reference to a command line tool that stands for  “global search regular expression and print”.  grep  is a wonderfully useful and powerful command line tool,  and  “grep”  has come to be recognized in general usage as a verb that means  “search,”  especially in conjunction with regular expressions. What if you’re interested in just a single file? That’s easy to do in Git. Execute the following command to see all of the full commit messages for  books/ book_ideas.md: git  log  --oneline books/book_ideas.md You’ll see all the commits for just that file: 57f31b3 Added new book entry and marked Git book complete 39c26dd I should write a book on git someday 43b4998 Adding book ideas file You can also see the commits that happened to the files in a particular directory: git  log  --oneline books This shows you all the changes that happened in that directory,  but it’s not clear which  files were changed.
+
+
+
+
+To get a clearer picture of which files were changed in that directory,  you can throw the  --stat  option on top of that command: git  log  --oneline --stat  books This shows you the following details about the changes in this directory so that you can see what was changed,  and even get a glimpse into how much was changed: ffcedc2 Adds all the good ideas about management  books/management_book_ideas.md | 0  1 file changed, 0 insertions(+), 0 deletions(-) 57f31b3 Added new book entry and marked Git book complete  books/book_ideas.md | 3 ++-  1 file changed, 2 insertions(+), 1 deletion(-) 39c26dd I should write a book on git someday  books/book_ideas.md | 1 +  1 file changed, 1 insertion(+) 43b4998 Adding book ideas file  books/book_ideas.md | 9 +++++++++  1 file changed, 9 insertions(+) becd762 Creating the directory structure  books/.keep | 0  1 file changed, 0 insertions(+), 0 deletions(-) You can also search the actual contents of the commit itself; that is,  the changeset of the commit.  This lets you look inside of your commits for particular words of interest or even whole snippets of code. Find all of the commits in your code that deal with the term  “Fortran”  with the following command: git  log  -S"Fortran" You’ll see the following: commit 43b4998d7bf0a6d7f779dd2c0fa4fe17aa3d2453 Author: Chris Belanger <chris@razeware.com> Date:   Thu Jan 10 10:12:36 2019 -0400     Adding book ideas file There’s just the one commit: the initial adding of the book ideas file.  But,  again, that’s not quite enough detail.  Can you recall which option you can use to show the actual changes in the commit?
+
+
+
+
+
+That’s right: It’s the  -p  option.  Execute the command above,  but this time,  add the  -p option to the end: git  log  -S"Fortran"  -p You’ll see a bit more detail now: commit 43b4998d7bf0a6d7f779dd2c0fa4fe17aa3d2453 Author: Chris Belanger <chris@razeware.com> Date:   Thu Jan 10 10:12:36 2019 -0400     Adding book ideas file diff --git a/books/book_ideas.md b/books/book_ideas.md new file mode 100644 index 0000000..f924368 --- /dev/null +++ b/books/book_ideas.md @@ -0,0 +1,9 @@ +# Ideas for new book projects + +- [ ] Hotubbing by tutorials +- [x] Advanced debugging and reverse engineering +- [ ] Animal husbandry by tutorials +- [ ] Beginning tree surgery +- [ ] CVS by tutorials +- [ ] Fortran  for  fun and profit +- [x] RxSwift by tutorials That’s better! You can now see the contents of that commit,  where Git found the term  “Fortran.” You’ve learned quite a lot about  git log  in this chapter,  probably more than the average Git user knows.  As you use Git more and more in your workflow,  and as the history of your project grows from months to years,  you’ll find that  git log  will eventually be your best friend,  and better at recalling things than your brain could ever be. Challenges Speaking of brains,  why don’t you exercise yours and reinforce the skills you learned in this chapter,  by taking on the four challenges of this chapter?
+
+
+Challenge 1: Show all the  details of  commits that mark items as “done” For this challenge,  you need to find all of the commits where items have been ticked off as  “done”; that is,  ones that have an  “x”  inside the brackets,  like so: [x] You’ll need to search for the above string,  and you’ll need to use an option to not only show the basic commit details,  but also show the contents of the changeset of the commit. Challenge 2: Find all the  commits with messages that mention “streaming” You want to search through the commit  messages  to find where you or someone else has used the term  “streaming”  in the commit message itself,  not necessarily in the content of the commit.  Tip: What was that strangely named command you learned about earlier in this chapter? Challenge 3: Get a  detailed history  of  the videos directory For this challenge,  you need to show everything that’s happened inside the  videos directory,  as far as Git’s concerned.  But,  once again,  the basic information about the commit is not enough.  You also need to show the full details about that diff.  So you’ll tag a familiar option on to the end of the command...  or can you? Challenge 4: Find detailed information  about all commits that contain  “iOS  13” In this final challenge,  you need to find the commits whose diffs contain the term “iOS 13.”  This sounds similar to Challenge 1 above,  but if you try to use the same command as you did in that challenge,  you won’t find any results.  But trust me,  there is at least one result in there.  Tip: Did you remember to search  “all”  of the repository?
+
+
+
+Key points • git log  by itself shows a basic,  vanilla view of the ancestral commits of the current  HEAD. • git log -p  shows the diff of a commit. • git log -_n_  shows the last  n  commits. • git log --oneline  shows a concise view of the short hash and the commit message. • You can stack options on  git log,  as in  git log -8 --oneline  to show the last 8 commits in a condensed form. • git log --graph  shows a crude but workable graphical representation of your repository. • git log --all  shows commits on other branches in the repository,  not just the ancestors of the current  HEAD. • git shortlog  shows a summary of commits, grouped by their author them,  in increasing time order. • git log --author="<authorname>"  lets you search for commits by a particular author. • git log --grep="<term>"  lets you search commit messages for a particular term. • git log <path/to/filename>  will show you just the commits associated with that one file. • git log <directory>  will show you the commits for files in a particular directory. • git log --stat  shows a nice overview of the scope and scale of the change in each commit. • git log -S"<term>"  lets you search the contents of a commit’s changeset for a particular term.
+
+
+
+Where to go from here? You’ve learned a significant amount about how Git works under the hood,  how commits work,  how the staging area works,  how to undo things you didn’t mean to do,  how to ignore files,  and how to leverage the power of  git log  to unravel the secrets of your repository. But one thing you haven’t yet really touched on is what makes Git so elegant and useful: its powerful branching model.  In fact,  Git’s branching mechanism is what sets it apart from most other version control systems,  since it works extremely well with the way most developers go about their projects.  In the next chapter,  you’ll learn what  master  really means,  how to create branches,  how Git  “thinks”  about branches in your repository,  the difference between local and remote repositories,  how to switch branches,  how to delete branches and more.
+
+
+## Chapter 7: Branching 
+
+By Chris Belanger
+
+One of the driving factors behind Git’s original design was to support the messy, non-linear approach to development that stems from working on large-scale,  fastmoving projects.  The need to split off development from the main development line, make changes independently and in isolation of other changes on the main development line,  easily merge those changes back in,  and do all this in a lightweight manner, was what drove the creators of Git to build a very lightweight,  elegant model to support this kind of workflow. In this chapter,  you’ll explore the first half of this paradigm:  branching.  You’ve touched on branching quite briefly in Chapter 1, “A  Crash Course in Git,”  but you probably didn’t quite understand what you,  or Git,  were  doing  in that moment. Although you can hobble through your development career never really understanding how branching in Git actually works,  branching is  incredibly important to the development workflows of many development teams,  both large and small,  so knowing what’s going on under the hood,  and having a solid mental model of your repository’s branching structure will help you immensely as your projects grow in size and complexity.
+
+What is a  commit? That question was asked and answered in a shallow manner a few chapters ago,  but it’s a good time to revisit that question and explore commits in more detail. Recall that a commit represents the state of your project tree  —  your directory  —  at a particular point in time: ├──  LICENSE ├──  README.md ├──  articles │   ├──  clickbait_ideas.md │   │   ├──  ios_article_ideas.md └──  live_streaming_ideas.md ├──  books │   └──  book_ideas.md └──  videos ├──  content_ideas.md └──  platform_ideas.md You probably think about your files primarily in terms of their content,  their position inside the directory hierarchy,  and their names.  So when you think of a commit, you’re likely to think about the state of the files,  their content and names at a particular point in time.  And that’s correct,  to a point: Git also adds some more information to that  “state of your files”  concept in the form of metadata. Git metadata includes such things like  “when was this committed?”  and  “who committed this?”,  but most importantly,  it includes the concept of  “where did this commit originate from?” —  and that piece of information is known as the commit’s parent. A  commit can have one or two parents,  depending on how it was branched and merged back in,  but you’ll get to that point later. Git takes all that metadata,  including a reference to this commit’s parent,  and wraps that up with the state of your files as the commit.  Git then  hashes  that collection of things using  SHA1  to create an ID,  or  key,  that is unique to that commit inside your repository.  This makes it extremely easy to refer to a commit by its hash value,  or as you saw in the previous chapter,  its short hash. What is a  branch? The concept of a branch is massively simple in Git: It’s simply a reference,  or a label, to a commit in your repository.  That’s it.  Really.  And because you can refer to a commit in Git simply through its hash,  you can see how creating branches is a
+
+
+terribly cheap operation.  There’s no copying,  no extra cloning,  just Git saying  “OK, your new branch is a label to commit  477e542”.  Boom,  done. As you make commits on your branch,  that label for the branch gets moved forward and updated with the hash of each new commit. Again,  all Git does is update that label,  which is stored as a simple file in that hidden  .git  repository,  as a really cheap operation. You’ve been working on a branch all along  —  did you realize that? Yes,  master  is nothing but a branch.  It’s only by convention,  and the default name that Git applies to this default branch when it creates a new repository,  that we say  “Oh,  the  master branch is the  main  branch.” There’s nothing special about  master; again,  Git simply knows that the  master branch is a revision in your repository pointed to by a simple label held in a file on disk.  Sorry to dash any notion that  master  was magic or something. Creating a  branch You created a branch before in the crash-course chapter,  but now you’re going to create a branch and watch exactly what Git is doing. The command to create a branch in Git is,  unsurprisingly,  git branch,  followed by the name of your branch. Execute the following command to create a new branch: git branch testBranch Git finishes that action with little fanfare,  since a new branch is not a big deal to Git. How Git tracks branches To see that Git actually  did  something,  execute the following command to see what Git’s done in the background: ls .git/refs/heads/
+
+
+This directory contains the files that point to all of your branches.  I get the following result of two files in that directory: master      testBranch Oh, that’s interesting  —  a file named  testBranch,  the same as your branch name. Take a look at  testBranch  to see what’s inside,  using the following command: cat .git/refs/heads/testBranch Wow — Git  is  really bare-bones about branches.  All that’s in there is a single hash value.  To take this to a new level of pedantry,  you can prove that the label testBranch  is pointing to the actual latest commit on your repository. Execute the following to see the latest commit: git  log  -1 You’ll see something like the following (your hash will be different than mine): commit 477e542bfa35942ddf069d85fbe3fb0923cfab47 (HEAD -> master, testBranch) Author: Chris Belanger <chris@razeware.com> Date:   Wed Jan 23 16:49:56 2019 -0400     Adding .gitignore files and HTML Let’s pick this apart a little.  The commit referenced here is,  indeed,  the same hash as contained in  testBranch.  The next little bit,  (HEAD -> master, testBranch), means that this commit is pointed to by  both  the  master  and the  testBranch branches.  The reason this commit is pointed to by both labels is because you’ve only created a new branch,  and not created any more commits on this branch.  So the label can’t move forward until you make another commit. Checking your current branch Git can easily tell you which branch you’re on,  if you ever need to know.  Execute the following command to verify you’re working on  testbranch: git branch
+
+
+Without any arguments or options,  git branch  simply shows you the list of local branches on your repository.  You should have the two following branches listed: * master   testBranch The asterisk indicates that you’re still on the  master  branch,  even though you’ve just created a new branch.  That’s because Git won’t switch to a newly created branch unless you tell it explicitly. Switching to  another  branch To switch to  testBranch,  execute the  checkout  command like so: git checkout testBranch Git responds with the following: Switched to branch  'testBranch' That’s really all there is to creating and switching between branches. Note:  Admittedly,  the term  checkout  is a bit of a misnomer,  since if you’ve ever owned a library card,  you know that checking out a book makes that book inaccessible to anyone else until you return it. That term is a holdover from the way that some older version control systems functioned,  as they used a lock-modify-unlock model,  which prevented anyone else from modifying the file at the same time.  It worked really well for preventing merge conflicts,  but pretty much killed any form of distributed, concurrent development. Speaking of old version control systems,  if any of you used PVCS  Version Manager back in the day (c.  2000 or so),  drop me a line and we can swap horror stories about the amazingly sparse documentation,  the endless fighting with semaphores, and all the other fun bits that came along with that piece of software.
+
+
+That’s enough poking around with  testBranch,  so switch back to  master  with the following command: git checkout master You really don’t need  testBranch  anymore,  since there are other,  real branches to be explored.  Delete  testBranch  with the following command: git branch -d testBranch Time to take a look at some real branches.  You already have one in your repository, just waiting for you to go in and start doing some work...  what’s that? Oh,  you don’t remember seeing that branch when you last executed  git branch? That’s because git branch  by itself only shows the local branches in your repository. When you first cloned this repository (which was a fork from the original  ideas repository),  Git started tracking both the local repository,  as well as the  remote repository  —  i.e.,  the forked repository that you created on GitHub.  Git knows about the branches on the remote as well as on your local system. So because of this synchronization between your local repository and the remote repository,  Git knows that any commits you make locally  —  and will likely push back to the remote  —  belong on a particular,  matching,  remote branch.  Equally well,  Git knows that any changes made on a branch on the remote  —  perhaps by a fellow developer somewhere in the world  —  belong in a specific,  matching directory on your local system. Viewing local and remote  branches To see all of the branches that Git knows about on this repository,  either local or remote,  execute the following command: git branch --all Git will respond with something similar to the following: * master   remotes/origin/HEAD -> origin/master   remotes/origin/clickbait   remotes/origin/master
+
+
+
+Git shows you all of the branches in your local and remote repositories.  In this case, the remote only has one branch:  clickbait.  All of the other branches listed are effectively  master  or pointers to  master. You have some work to do on the clickbait branch.  If everyone else is doing it,  you should,  too,  right? To get this branch down to your machine,  tell Git to start tracking it,  and switch to this branch all in one action,  execute the following command: git checkout --track origin/clickbait Git responds with the following: Branch  'clickbait'  set  up to track remote branch  'clickbait' from  'origin'. Switched to a new branch  'clickbait' Explaining  origin OK, what is this  origin  thing that you keep seeing? origin  is another one of those convenience conventions that Git uses.  Just like master  is the default name for the first branch created in your repository,  origin  is the default alias for the location of the remote repository from where you cloned your local repository. To see this,  execute the following command to see where Git thinks  origin  lives: git remote -v You should see something similar to the following: origin  https://www.github.com/belangerc/ideas (fetch) origin  https://www.github.com/belangerc/ideas (push) You’ll have something different in your URLs,  instead of  belangerc.  But you can see here that  origin  is simply an alias for the URL of the remote repository.  That’s all. To see Git’s view of all local and remote branches now,  execute the following command: git branch --all -v
+
+
+Git will respond with its understanding of the current state of the local and remote branches,  with a bit of extra information provided by the  -v  (verbose) option: * clickbait                e69a76a Adding suggestions from Mic   master                   477e542 [ahead 8] Adding .gitignore files and HTML   remotes/origin/HEAD      -> origin/master   remotes/origin/clickbait e69a76a Adding suggestions from Mic   remotes/origin/master    c470849 Going to try this livestreaming thing Git tells you that you are on the  clickbait  branch,  and you can also see that the hash for the local  clickbait  branch is the same as the remote one,  as you’d expect. Of interest is the  master  branch,  as well.  Git is tracking your local  master  branch against the remote one,  and it knows that your local  master  branch is eight commits ahead of the remote.  Git will also let you know if you’re behind the remote branch as well; that is,  if there are any commits on the remote branch that you haven’t yet pulled down to your local branch. Viewing branches graphically To see a visual representation of the current state of your local branches,  execute the following command: git  log  --oneline --graph The tip of the graph,  which is the latest commit,  tells you where you are: * e69a76a (HEAD -> clickbait, origin/clickbait) Adding suggestions from Mic Your current  HEAD  points to the clickbait branch,  and you’re at the same point as your remote repository. A shortcut for  branch  creation I confess,  I took you the long way  ’round with that command  git checkout -track origin/clickbait, but seeing the long form of that command hopefully helped you understand what Git actually  does  when it checks out and tracks a branch from the remote.
+
+
+
+
+
+There’s a much shorter way to checkout and switch to an existing branch on the remote:  git checkout clickbait  works equally well,  and is a bit easier to type and to remember. When you specify a branch name to  git checkout,  Git checks to see if there is a local branch that matches that name to switch to.  If not,  then it looks to the  origin remote,  and if it finds a branch on the remote matching that name,  it assumes that is the branch you want,  checks it out for you,  and switches you to that branch.  Rather nice of it to take care of all that for you. There’s also a shortcut command which solves the two-step problem of  git branch <branchname>  and  git checkout <branchname>:  git checkout -b <branchname>. This,  again,  is a faster way to create a local branch. Now that you have seen how to create,  switch to,  and delete branches,  it’s time for the short challenge of this chapter,  which will serve to reinforce what you’ve learned and show you what to do when you want to delete a local branch that already has a commit on it. Challenge 1: Delete  a  branch  with commits You don’t want to muck up your existing branches for this challenge,  so you’ll need to create a temporary local branch,  switch to it,  make a commit,  and then delete that branch. 1. Create a temporary branch with the name of  newBranch. 2. Switch to that branch. 3. Use the  touch  command to create an empty  README.md  file in the root directory of your project. 4. Add that new  README.md  file to the staging area. 5. Commit that change with an appropriate message. 6. Checkout the  master  branch. 7. Delete  newBranch — but Git won’t let you delete this branch in its current state. Why? 8. Follow the suggestion that Git gives you to see if you can delete this branch.
+
+
+
+
+Remember to use  git status,  git branch  and  git log --oneline --graph -all  to help get your bearings as you work on this challenge. If you get stuck,  or want to check your solution,  you can always find the answer to this challenge under the challenges folder for this chapter. Key points • A commit in Git includes information about the state of the files in your repository,  along with metadata such as the commit time,  the commit creator,  and the commit’s parent or parents. • The hash of your commit becomes the unique ID,  or key,  to identify that particular commit in your repository. • A branch in Git is simply a reference to a particular commit by way of its hash. • master is simply a convenience convention,  but has come to be accepted as the main branch of a repository. • Use  git branch <branchname>  to create a branch. • Use  git branch  to see all local branches. • Use  git checkout <branchname>  to switch to a local branch,  or to checkout and track a remote branch. • Use  git branch -d <branchname>  to delete a local branch. • Use  git branch --all  to see all local and remote branches. • origin, like  master,  is simply a convenience convention that is an alias for the URL of the remote repository. • Use  git checkout -b <branchname>  to create and switch to a local branch in one fell swoop.
+
+
+Where to go from here? Get used to branching in Git,  because you’ll be doing it often.  Lightweight branches are pretty much  the  reason that Git has drawn so many followers,  as it matches the workflow of concurrent development teams. But there’s little point in being able to branch and work on a branch,  without being able to get your work joined back up to the main development branch.  That’s merging, and that’s exactly what you’ll do in the next chapter!
+
+## Chapter 8: Syncing  with  a Remote 
+
+By Chris Belanger Up to this point in the book,  you’ve worked pretty much exclusively on your local system,  which isn’t to say that’s a bad thing  —  having a Git repository on your local machine can support a healthy development workflow,  even when you are working by yourself. But where Git really shines is in managing distributed,  concurrent development,  and that’s what this chapter is all about.  You’ve done lots of great work on your machine, and now it’s time to push it back to your remote repository and synchronize what you’ve done with what’s on the server. And there’s lots of reasons to have a remote repository somewhere,  even if you are working on your own.  If you ever need to restore your development environment, such as after a hard drive failure,  or simply setting up another development machine, then all you have to do is clone your remote repository to your clean machine. And just because you’re working on your own now doesn’t mean that you won’t always want to maintain this codebase yourself.  Down the road,  you may want another maintainer for your project,  or you may want to fully open-source your code. Having a remote hosted repository makes doing that trivial.
+
+
+Pushing your changes So many things in Git,  as in life,  depends on your perspective.  Git has perspective standards when synchronizing local repositories with remote ones:  Pushing  is the act of taking your local changes and putting them up on the server,  while  pulling  is the act of pulling any changes on the server into your local cloned repository. So you’re ready to push your changes,  and that brings you to your next Git command, handily named  git push. Execute the following command to push your changes up to the server: git push origin master This tells Git to take the changes from the  master  branch and synchronize the remote repository (origin) with your changes.  You’ll see output similar to the following: Counting objects: 40, done. Delta compression using up to 4 threads. Compressing objects: 100% (36/36), done. Writing objects: 100% (40/40), 3.96 KiB | 579.00 KiB/s, done. Total 40 (delta 18), reused 0 (delta 0) remote: Resolving deltas: 100% (12/12), completed with 3 local objects. To https://www.github.com/belangerc/ideas.git    c470849..f5c54f0  master -> master Git’s given you a lot of output in this message,  but essentially it’s telling you some high-level information about what it’s done,  here: It’s synchronized 12 changed items from your local repository on the remote repository. Note: Wondering why Git didn’t prompt you for a commit message,  here? That’s because a push is not really  committing  anything; what you’re doing is asking Git to take your changes and synchronize them onto the remote repository.  You’re combining your commits with those already on the remote, not creating a new commit on top of what’s already on the remote. Want to see the effect of your changes? Head over to the URL for your repository on GitHub.  If you’ve forgotten what that is,  you can find it in the output of your  git push  command. In my case,  it’s  https://www.github.com/belangerc/ideas,  but yours will have a different username in there.
+
+Once there, click the 19 commits link near the top of your page:You’ll be taken to a list of all of your synchronized changes in your remote repository, and you should recognize the commits that you’ve made in your local repository:
+
+That’s one half of the synchronization dance.  And the yin to  git push’s yang is, unsurprisingly.  git pull. Pulling  changes Pulling changes is pretty much the reverse scenario of pushing; Git takes the commits on the remote repo,  and it integrates them all with your local commits. That operation is pretty straightforward when you’re working by yourself on a project; you pull the latest changes from the repository,  and,  most likely,  the remote will always be synchronized with your local,  since there’s no one else but you to make any changes. But the more common scenario is that you’ll be working with others in the same repository,  and they will be their own pushing changes to the repository.  So most of the time,  you won’t have the luxury of pushing your changes onto an untouched repository,  and you’ll have to integrate the changes on the remote by pulling them into your repository before you can push your local changes. To illustrate how this works,  and to illustrate what  git pull  actually does to your repository,  you’ll simulate a scenario wherein someone else has made a change to the  master  branch and pushed their changes before you had a chance to push yours. You’ll see how Git responds to this scenario,  and you’ll learn the steps required to solve this issue see how to solve this issue. Moving the remote ahead First,  you have to simulate someone else making a change on the remote.  Navigate to the main page on GitHub for your repository:  https://github.com/<username>/ ideas.  Once there,  click on the  tutorials  directory link of your project,  and then click on  tutorial_ideas.md  to view it in your browser.
+
+Click the edit icon on the page (the little pencil icon), and GitHub will open a basic editor for you.Add the following idea to tutorial_ideas.md in the editor:[ ] Blockchains with BASICThen, scroll down to the Commit changes section below the editor, add a commit message of your choice in the first field of that section, leave the radio button selection as Commit directly to the master branch, and click Commit changes.This creates a new commit on top of the existing master branch on the remote repository, just as if someone else on your development team had pushed the commits from their local system.Now, create a change to a different file in your local repository.
+
+
+Return to your terminal program,  and edit  books/book_ideas.md  and add the following line to the bottom of the file:- [ ] Debugging with the Grace Hopper Method Save your changes and exit. Stage the change: git add books/book_ideas.md Now, create a commit on your local repository: git commit -m "Adding debugging book idea" You now have a commit on the head of your local  master  branch,  and you also have a different commit on the head of your remote  master  branch.  Now you want to push this change up to the remote.  Well,  that’s easy.  Just execute the  git push  command as you normally would: git push origin master Git balks,  and returns the following information to you: ! [rejected]        master -> master (non-fast-forward) error: failed to push some refs to 'https://www.github.com/ belangerc/ideas' hint: Updates were rejected because the tip of your current branch is behind hint: its remote counterpart. Integrate the remote changes (e.g. hint: 'git pull ...') before pushing again. hint: See the 'Note about fast-forwards' in 'git push --help' for details. Well,  that didn’t work as expected.  Git is quite helpful sometimes in the hints it gives; in this case,  it’s telling you that it detected changes on the remote that you don’t have locally.  Since you’d probably want to make sure that your local changes meshed properly with the changes on the remote before you push,  you’ll want to pull those changes down to your local system.
+
+
+
+Execute the following to pull the changes from the remote into your local:git pull originOh, heck, Git has opened up Vim, which means that it’s creating a commit; in this case, it’s creating a merge commit. Why, Git, why?Merge branch 'master' of https://github.com/belangerc/ideas  # Please enter a commit message to explain why this merge is necessary, # especially if it merges an updated upstream into a topic branch. # # Lines starting with '#' will be ignored, and an empty message aborts # the commit.You’ll explore what Git is doing shortly, but finish this commit first and let Git get on with whatever it’s doing. Git has already auto-created a commit message for you, so you might as well accept that and try and figure this mess out later. Press :, then type wq and then press Enter to save this commit message and exit out of Vim.You’re taken back to the command prompt, so execute the following to see what Git has done for you:git log --graph --onelineYou’ll see something similar to the following:*   a3ee3c2 (HEAD -> master) Merge branch 'master' of https://github.com/belangerc/ideas |\ | * 8909ec5 (origin/master, origin/HEAD) Added killer blockchain idea * | c7f4e7f Adding debugging book idea |/ * 1e04e39 Adding .gitignore files and HTML . . .Note: Wondering what those asterisks (*) mean in the graphical representation of your tree? Since commits from different branches are shown stacked one on top of the other, the asterisks simply show you on which
+
+
+branch this commit was made.  In this case,  you can see the book idea was committed on one branch (your local  master  branch),  and the other commit was created on the remote origin branch. Working up the tree,  you have a common ancestor of  1e04e39 Adding .gitignore files and HTML. Then you have commit  c7f4e7f,  which is the commit you made on your local repository,  followed by  8909ec5,  your remote commit on the GitHub repository page.  And  also,  there’s this  a3ee3c2 Merge branch 'master'  stuff at the top.  And  also also,  Git shows your remote blockchain commit on a branch.  But you didn’t create a branch.  You chose the option on the GitHub edit page to commit directly to  master.  Where did that come from? Note: It’s seemingly simple scenarios like this  —  non-conflicting changes to distinct files resulting in a merge commit  —  that causes newcomers to Git to throw up their hands and say, “What the heck,  Git?” This is why learning Git on the command line can be instructive,  as opposed to using a Git GUI client that hides details like this.  Seeing what Git is doing under the hood,  and,  more importantly,  understanding  why,  is what will help you navigate these types of scenarios like a pro. To understand what Git’s doing,  you need to dissect the  git pull  command first, since  git pull  is not one,  but  two  commands in disguise. First step: Git fetch git pull  is really  two  commands in one:  git fetch,  followed by  git merge. You haven’t run across  git fetch  yet.  Fetching updates your local repository’s hidden  .git  directory with all of the commits for this repository,  both local and remote.  Then,  Git can figure out what to do with what it’s fetched from the remote; maybe it can fast-forward merge it,  maybe it can’t,  or maybe there’s a conflict preventing Git from going any further until you fix the conflict. Generally,  it’s a good idea to execute  git fetch  before pushing your changes to the remote,  if you suspect that someone else may have been committing changes to that same particular branch on the remote,  and you want to check out what they’ve done before you integrate it with your work.
+
+
+
+When Git fetches the remote commits and brings them down to your local system,  it creates a temporary reference to the tip of the remote repository’s branch.  Think back to when you explored a little of the Git internal file structure,  and you found the f ile  .git/refs/heads/master  that simply contained a reference to the hash of the commit that was at the tip of the current branch (i.e.,  HEAD). You can see this reference in your own local hidden  .git  directory. Execute the following command: ls .git In the results,  you should see a file named  FETCH_HEAD.  That’s the temporary reference to the tip of your remote branches.  Want to see what’s inside? Sure thing! Execute the following command to see the contents of  FETCH_HEAD: cat .git/FETCH_HEAD You’ll see a hash,  along with a note of where this commit came from.  In my case,  I see the following at the top of that file: 8909ec5feb674be351d99f19c51a6981930ba285        branch 'master' of https://github.com/belangerc/ideas Second step: Git merge So once Git has fetched all of the commits to your local system,  you’re essentially in a position in which you have a commit from one source  —  your local commit  —  that Git needs to combine with another commit: the remote commit.  Sounds like merging a branch,  doesn’t it? In fact,  that’s pretty much how Git views the situation.  Take a look back at the state of the repository graph before you merged,  reproduced here: * c7f4e7f (HEAD -> master) Adding debugging book idea | * 8909ec5 (origin/master, origin/HEAD) Added killer blockchain idea |/ *   1e04e39 Adding .gitignore files and HTML . . .
+
+
+
+
+
+Merging two commits,  regardless of where they came from,  is essentially what you did when you merged your branches back to  master  in the previous chapter.  The difference here is that Git creates a virtual  “branch”  that points to the commit from the remote repository,  as you can see in the graphical representation of the repository tree above. There is a way around creating a messy merge commit,  that involves the Git mechanism of  rebasing.  You’ll cover that method of merging in later sections of this book,  but,  for now,  you’ll simply push your changes to the remote and live with the merge commit for now. Execute the following command to push your changes up to the remote: git push origin master Head over to the main GitHub page for your repository,  click on the  22 commits  link, and you’ll see your changes up there on the remote. Dealing with  multiple  remotes There’s another somewhat common synchronization scenario in which you have not one,  but  two  remotes to deal with. You’ve been working on your own fork of the  ideas  repository for some time,  but what if there were a few changes in someone else’s forked repository that you wanted to pull down to your own local system,  and merge from whatever branch that user has them in,  into your  master  branch? Head over to the original  ideas  repository at  https://github.com/raywenderlich/ ideas.  Click on the number next to the  Fork  button,  and you’ll see a list of all the forks that have been created from this repository:
+
+This mysterious  crispy8888  user has created an update on his copy of the repository that you’d like to pull down and incorporate into your local repository.  Click on the ideas  link next to the  crispy8888  username,  and you’ll be taken to the  crispy8888 fork.  Get the URL of this fork using the  Clone or Download  button. Back in your terminal program,  execute the following to add a new remote to your repository: git remote add crispy8888 https://github.com/crispy8888/ ideas.git This creates a new remote reference in your repository,  named  crispy8888,  that points to the  crispy8888’s fork at the above URL. Execute the following command to see that your local repository now has another remote added to it: git remote -v You’ll see something similar to the following: crispy8888  https://github.com/crispy8888/ideas.git (fetch) crispy8888  https://github.com/crispy8888/ideas.git (push) origin  https://www.github.com/belangerc/ideas (fetch) origin  https://www.github.com/belangerc/ideas (push) There you are: another remote that points to someone else’s fork.  Now you can work with that remote,  just as you did with  origin.  Remember,  the name of your first remote,  origin, is nothing more than a convention.  There’s nothing special about origin; it’s just another remote,  no different than the  crispy8888  one you just created.  And you don’t have to name your new remote the same as the account that created it; I could easily have named that remote  whatshisname  instead of crispy8888  and things would have worked just as well. At this point,  you only have a  reference  to the remote in your local repository; you don’t actually have any of the new remote’s content yet.  To see this,  execute the following command to see the graphical view of your repository: git log --graph --oneline --all Even though you’ve instructed Git to look at all of the branches,  you still can’t see the changes on the  crispy8888  remote.  That’s because you haven’t fetched any of the content yet from that fork; it’s all still up on the server.
+
+
+Execute the following command to pull down the contents of the crispy8888 remote:git fetch crispy8888At the end of the output from that command, you’ll see the following two lines: * [new branch]      clickbait  -> crispy8888/clickbait  * [new branch]      master     -> crispy8888/masterNow you can look at the graphical representation of this repository with the following command:git log --graph --oneline --allAt the top of the resulting graph, you’ll see where this remote has diverged from the original:* 9ff4582 (crispy8888/clickbait) Added another clickbait idea * e69a76a (HEAD -> clickbait, origin/clickbait) Adding suggestions from Mic * 5096c54 Adding first batch of clickbait ideas | *   a3ee3c2 (origin/master, origin/HEAD, master) Merge branch 'master' of https://github.com/belangerc/ideas | |\ | | * 8909ec5 Added killer blockchain idea | * | c7f4e7f Adding debugging book idea | |/ | * 1e04e39 Adding .gitignore files and HTML | * cf04646 Adds all the good ideas about management | * 58a2945 Removes terrible live streaming ideas | * 988820a Moves platform ideas to website directory | * b4d402f Updates book ideas for Symbian and MOS 6510 | * 41c82df Added more tutorial ideas | * 761a50d Adding empty tutorials directory | * dbcfe56 Added new book entry and marked Git book complete | * c470849 (crispy8888/master) Going to try this livestreaming thing | * 629cc4d Some scratch ideas for the iOS team |/ * fbc46d3 Adding files for article ideasASCII graphing tools have their limitations, to be sure! But you get the point: there is a commit on crispy8888/clickbait that you’d like to pull into your own repository.
+
+
+To be diligent,  you should probably follow a branching workflow here so your actions are easily traceable in the log.  Move to your own  clickbait  branch: git checkout clickbait Now you’d like to merge those two changes into your new branch.  That’s done in just the same way that you merge any other branch.  The only difference is that you have to explicitly specify the remote that you want to merge from: git merge crispy8888/clickbait Git narrates every step of what it’s doing like any good,  modern YouTube star: Updating e69a76a..9ff4582 Fast-forward  articles/clickbait_ideas.md | 1 +  1 file changed, 1 insertion(+) Oh, that’s nice  —  Git performed a clean fast-forward merge for you,  since there were no other changes on the forked  clickbait  branch since you created your own fork. That’s quite a change from your previous attempt,  where you ended up with a merge commit for a simple change. To check that Git actually created a fast-forward merge,  check the first few lines of git log --graph --oneline: * 9ff4582 (HEAD -> clickbait, crispy8888/clickbait) Added another clickbait idea * e69a76a (origin/clickbait) Adding suggestions from Mic * 5096c54 Adding first batch of clickbait ideas Are you done,  yet? No,  you’ve only merged this into your local  clickbait  branch. You still need to merge this into  master. First,  switch to the branch you’d like to merge into: git checkout master Now, merge in your local  clickbait  branch as follows: git merge clickbait Vim opens up,  so either accept the default merge message,  or press  I  to enter Insert mode to improve it yourself.  When done,  Escape  +  Colon  +  w  +  q  will get you out of there.
+
+
+Pull up the log again,  with  git log --oneline --graph  to see the current state of affairs: *   58b5b43 (HEAD -> master) Merge branch 'clickbait' |\ | * 9ff4582 (crispy8888/clickbait, clickbait) Added another clickbait idea | * e69a76a (origin/clickbait) Adding suggestions from Mic | * 5096c54 Adding first batch of clickbait ideas * |   a3ee3c2 (origin/master, origin/HEAD) Merge branch 'master' of https://github.com/belangerc/ideas |\ \ | * | 8909ec5 Added killer blockchain idea * | | c7f4e7f Adding debugging book idea |/ / . . . At the top is your merge commit,  and below that is your work done merging from the crispy8888  remote.  You can tell that Git is pushing its  ASCII art graphing skills to the limit here with just three branches at play.  Later in the book,  you’ll see a few nicer alternatives to the Git command line graph analysis,  but  git log  does nicely in a pinch when you don’t have access to your usual GUI tools. You’re done,  here,  so all that’s left is to push this merge to  origin.  Do that as you normally would with the following command: git push origin master You’ve done a  tremendous  amount in this chapter,  so there’s no challenge for you. You’ve covered more here than any average developer would likely see in the course of a few years’  worth of simple pushing,  pulling,  branching and merging. Key points • Git has two mechanisms for synchronization:  pushing  and  pulling. • git push  takes your local commits and synchronizes the remote repository with those commits. • git pull  brings the commits from the remote repository and merges them with your local commits.
+
+
+• git pull  is actually two commands in disguise:  git fetch  and  git merge. • git fetch  pulls all of the commits down from the remote repository to your local one. • git merge  merges the commits from the remote into your local repository. • You can’t push to a remote that has any commits that you don’t have locally,  and that Git can’t fast-forward merge. • You can pull commits from multiple remotes into your local repository and merge them as you would commits from any other branch or remote. Where to go from here? You’ve accomplished quite a bit,  here,  so now that you know how to work in a powerful fashion with Git repositories,  it’s time to loop back around and answer two questions: • “How do I create a Git repository from scratch?” • “How to I create a remote repository from a local one?” You’ll answer those two questions in the next two chapters that will close out this Beginning Git section of the book,  and lead you nicely into the Intermediate Git chapters to come.
+
+
+## Chapter 9: Creating  a Repository 
+
+By Chris Belanger 
+
+You’ve come a long way in your Git journey,  all the way from your first commit,  to learning about what Git does behind the scenes,  to managing some rather complicated merge scenarios.  But in all your work with repositories,  you haven’t yet learned exactly  where  a repository comes from.  Sure,  you’ve cloned a repository,  and you’ve forked repositories and worked with remotes,  but how do you create a repository and a remote  from scratch? This chapter shows you how to create a brand-new repository on your local machine, and how to create a remote to host your brand-new repository for all to see.
